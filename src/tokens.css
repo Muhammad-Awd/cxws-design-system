@@ -1,0 +1,285 @@
+/* Values in this file are copied from the customer portal's src/index.css.
+   Tailwind scale aliases are retained so consuming Tailwind apps can use them. */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('SF Pro Display Regular'), local('SFProDisplay-Regular'), local('.SFNSDisplay'), local('.SFNS-Regular');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('SF Pro Display Medium'), local('SFProDisplay-Medium'), local('.SFNSDisplay-Medium'), local('.SFNS-Medium');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('SF Pro Display Semibold'), local('SFProDisplay-Semibold'), local('.SFNSDisplay-Semibold'), local('.SFNS-Semibold');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('SF Pro Display Bold'), local('SFProDisplay-Bold'), local('.SFNSDisplay-Bold'), local('.SFNS-Bold');
+}
+
+@theme {
+  --font-sans: var(--cx-font-sans);
+  --radius-control: 0.25rem;
+  --radius-card: 0.5rem;
+  --radius-sheet: 0.75rem;
+  --spacing-tap: 2.75rem;
+  --spacing-tap-lg: 3rem;
+  --spacing-mobile-bar: 3.5rem;
+  --spacing-logo-min: 1.625rem;
+  --spacing-logo-lg: 1.75rem;
+  --spacing-cobrand-w: 0.15625rem;
+  --spacing-cobrand-h: 1.25rem;
+  --spacing-pool-bar: 0.875rem;
+  --spacing-clock-bar: 1.25rem;
+  --spacing-step-dot: 1.5rem;
+  --text-micro: 0.75rem;
+  --color-cx-bg: var(--cx-bg);
+  --color-cx-surface: var(--cx-surface);
+  --color-cx-raised: var(--cx-surface-raised);
+  --color-cx-subtle: var(--cx-surface-subtle);
+  --color-cx-border: var(--cx-border);
+  --color-cx-border-strong: var(--cx-border-strong);
+  --color-cx-text: var(--cx-text);
+  --color-cx-muted: var(--cx-text-muted);
+  --color-cx-quiet: var(--cx-text-subtle);
+  --color-cx-primary-bg: var(--cx-primary-bg);
+  --color-cx-primary-fg: var(--cx-primary-fg);
+  --color-cx-primary-hover: var(--cx-primary-hover);
+  --color-cx-secondary-bg: var(--cx-secondary-bg);
+  --color-cx-secondary-hover: var(--cx-secondary-hover);
+  --color-doc-bg: var(--doc-bg);
+  --color-doc-subtle: var(--doc-subtle);
+  --color-doc-border: var(--doc-border);
+  --color-doc-text: var(--doc-text);
+  --color-doc-muted: var(--doc-muted);
+  --color-doc-quiet: var(--doc-quiet);
+  --color-doc-brand-red: var(--doc-brand-red);
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --cx-font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'IBM Plex Sans Arabic', sans-serif;
+  --cx-bg: #0d0d0d;
+  --cx-surface: #141414;
+  --cx-surface-raised: #1c1c1c;
+  --cx-surface-subtle: #111111;
+  --cx-border: #262626;
+  --cx-border-strong: #3a3a3a;
+  --cx-text: #ffffff;
+  --cx-text-muted: #b3b3b3;
+  --cx-text-subtle: #949494;
+  --cx-primary-bg: #ffffff;
+  --cx-primary-fg: #0d0d0d;
+  --cx-primary-hover: #e5e5e5;
+  --cx-secondary-bg: #1a1a1a;
+  --cx-secondary-hover: #262626;
+  --cx-focus-ring: #ffffff;
+  --cx-shadow-float: 0px 104px 520px rgba(0, 0, 0, 0.55), 0px 12px 32px rgba(0, 0, 0, 0.45);
+  --cx-status-ok-fg: #4ade80;
+  --cx-status-ok-bg: rgba(34, 197, 94, 0.12);
+  --cx-status-ok-border: rgba(74, 222, 128, 0.28);
+  --cx-status-warn-fg: #fbbf24;
+  --cx-status-warn-bg: rgba(245, 158, 11, 0.12);
+  --cx-status-warn-border: rgba(251, 191, 36, 0.28);
+  --cx-status-danger-fg: #f87171;
+  --cx-status-danger-bg: rgba(239, 68, 68, 0.12);
+  --cx-status-danger-border: rgba(248, 113, 113, 0.3);
+  --cx-status-neutral-fg: #bdbdbd;
+  --cx-status-neutral-bg: rgba(138, 138, 138, 0.14);
+  --cx-status-neutral-border: rgba(138, 138, 138, 0.28);
+  --doc-bg: #ffffff;
+  --doc-subtle: #fafafa;
+  --doc-border: #e5e5e5;
+  --doc-text: #0d0d0d;
+  --doc-muted: #4a4a4a;
+  --doc-quiet: #666666;
+  --doc-brand-red: #ac322e;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --cx-bg: #f6f6f6;
+  --cx-surface: #ffffff;
+  --cx-surface-raised: #f0f0f0;
+  --cx-surface-subtle: #fafafa;
+  --cx-border: #e2e2e2;
+  --cx-border-strong: #8f8f8f;
+  --cx-text: #0d0d0d;
+  --cx-text-muted: #454545;
+  --cx-text-subtle: #595959;
+  --cx-primary-bg: #0d0d0d;
+  --cx-primary-fg: #ffffff;
+  --cx-primary-hover: #262626;
+  --cx-secondary-bg: #f3f3f3;
+  --cx-secondary-hover: #e7e7e7;
+  --cx-focus-ring: #0d0d0d;
+  --cx-shadow-float: 0px 104px 520px rgba(0, 0, 0, 0.15);
+  --cx-status-ok-fg: #15803d;
+  --cx-status-ok-bg: rgba(21, 128, 61, 0.08);
+  --cx-status-ok-border: rgba(21, 128, 61, 0.24);
+  --cx-status-warn-fg: #b45309;
+  --cx-status-warn-bg: rgba(180, 83, 9, 0.09);
+  --cx-status-warn-border: rgba(180, 83, 9, 0.25);
+  --cx-status-danger-fg: #b91c1c;
+  --cx-status-danger-bg: rgba(185, 28, 28, 0.08);
+  --cx-status-danger-border: rgba(185, 28, 28, 0.25);
+  --cx-status-neutral-fg: #525252;
+  --cx-status-neutral-bg: rgba(82, 82, 82, 0.08);
+  --cx-status-neutral-border: rgba(82, 82, 82, 0.22);
+  --doc-bg: #ffffff;
+  --doc-subtle: #fafafa;
+  --doc-border: #e5e5e5;
+  --doc-text: #0d0d0d;
+  --doc-muted: #4a4a4a;
+  --doc-quiet: #595959;
+  --doc-brand-red: #ac322e;
+}
+
+:root {
+  --cx-font-english: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --cx-font-arabic: 'IBM Plex Sans Arabic', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --cx-font-size-micro: 0.75rem;
+  --cx-font-size-xs: 0.75rem;
+  --cx-font-size-sm: 0.875rem;
+  --cx-font-size-base: 1rem;
+  --cx-font-size-lg: 1.125rem;
+  --cx-font-size-xl: 1.25rem;
+  --cx-font-size-2xl: 1.5rem;
+  --cx-font-size-3xl: 1.875rem;
+  --cx-font-weight-regular: 400;
+  --cx-font-weight-light: 300;
+  --cx-font-weight-medium: 500;
+  --cx-font-weight-semibold: 600;
+  --cx-font-weight-bold: 700;
+  --cx-line-height-tight: 1.25;
+  --cx-line-height-normal: 1.5;
+  --cx-line-height-relaxed: 1.625;
+  --cx-letter-spacing-tight: -0.025em;
+  --cx-radius-control: 0.25rem;
+  --cx-radius-card: 0.5rem;
+  --cx-radius-sheet: 0.75rem;
+  --cx-border-width: 1px;
+  --cx-space-1: 0.25rem;
+  --cx-space-2: 0.5rem;
+  --cx-space-3: 0.75rem;
+  --cx-space-4: 1rem;
+  --cx-space-5: 1.25rem;
+  --cx-space-6: 1.5rem;
+  --cx-space-8: 2rem;
+  --cx-space-10: 2.5rem;
+  --cx-space-12: 3rem;
+  --cx-tap-height: 2.75rem;
+  --cx-tap-height-lg: 3rem;
+  --cx-mobile-bar-height: 3.5rem;
+  --cx-content-max: 72rem;
+  --cx-page-gutter: 1rem;
+  --cx-header-height: 4rem;
+  --cx-sidebar-width: 15rem;
+  --cx-z-10: 10;
+  --cx-z-30: 30;
+  --cx-z-40: 40;
+  --cx-z-50: 50;
+  --cx-motion-control-duration: 150ms;
+  --cx-motion-surface-duration: 250ms;
+  --cx-motion-sheet-duration: 400ms;
+  --cx-breakpoint-sm: 40rem;
+  --cx-breakpoint-md: 48rem;
+  --cx-breakpoint-lg: 64rem;
+  --cx-breakpoint-xl: 80rem;
+  --cx-breakpoint-2xl: 96rem;
+}
+
+@layer base {
+  html {
+    background: var(--cx-bg);
+    color: var(--cx-text);
+    font-family: var(--cx-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html[lang='ar'],
+  html[dir='rtl'] {
+    --cx-font-sans: 'IBM Plex Sans Arabic', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-family: var(--cx-font-sans);
+  }
+
+  [lang='ar'] {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  }
+
+  [lang='en'] {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--cx-bg);
+    color: var(--cx-text);
+    font-family: var(--cx-font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cx-focus-ring);
+    outline-offset: 2px;
+  }
+
+  bdi {
+    unicode-bidi: isolate;
+  }
+}
+
+@layer components {
+  .cx-motion-control {
+    transition-property: color, background-color, border-color, opacity;
+    transition-duration: var(--cx-motion-control-duration);
+    transition-timing-function: ease-out;
+  }
+
+  .cx-motion-surface {
+    transition-property: color, background-color, border-color, opacity;
+    transition-duration: var(--cx-motion-surface-duration);
+    transition-timing-function: ease-out;
+  }
+
+  .cx-motion-sheet {
+    animation: cxFadeIn var(--cx-motion-sheet-duration) ease-out both;
+  }
+
+  .cx-float-shadow {
+    box-shadow: var(--cx-shadow-float);
+  }
+}
+
+@keyframes cxFadeIn {
+  from { opacity: 0; transform: translateY(0.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

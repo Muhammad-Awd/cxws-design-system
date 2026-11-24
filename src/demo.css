@@ -1,0 +1,9 @@
+.cx-demo-page { display: grid; gap: 2rem; }
+.cx-demo-section { display: grid; gap: 1rem; }
+.cx-demo-section > h2 { margin: 0; color: var(--cx-text); font-size: 1rem; font-weight: 700; }
+.cx-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.cx-demo-stack { display: grid; gap: 0.75rem; }
+.cx-demo-grid { display: grid; gap: 1.25rem; }
+.cx-demo-grid > *:nth-child(3) { grid-column: 1 / -1; }
+.cx-demo-section [role='tabpanel'] { padding-block-start: 1rem; }
+@media (min-width: 40rem) { .cx-demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
