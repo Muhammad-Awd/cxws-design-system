@@ -1,6 +1,6 @@
 {
   "name": "@muhammad-awd/cxws-design-system",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Presentational UI components and design tokens extracted from the CloudX customer portal.",
   "license": "UNLICENSED",
   "type": "module",
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "prepare": "npm run build",
-    "build": "tsc -p tsconfig.build.json && vite build && cp src/tokens.css dist/tokens.css",
+    "build": "vite build && tsc -p tsconfig.build.json && cp src/tokens.css dist/tokens.css",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",

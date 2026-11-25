@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.3.1] - 2026-11-25
+
+### Fixed
+
+- Preserve generated TypeScript declarations during package builds so consumers can typecheck against the exported API.
+
 ## [0.3.0] - 2026-11-25
 
 ### Added
