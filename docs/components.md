@@ -166,6 +166,7 @@ Use `onDismiss` to render a close control and `dismissLabel` to localize it; the
 ### `GroupedSidebar`
 
 Use it when the application groups destinations under section headings. Navigation state and transitions stay with the caller.
+Items use real `href` links. An ordinary click calls `onNavigate` without reloading; modified clicks keep the browser's native link behavior.
 
 ```tsx
 <GroupedSidebar groups={[{ label: 'Workspace', items: [{ id: 'overview', label: 'Overview', href: '#overview', active: true }] }]} onNavigate={(item) => navigate(item.id)} />

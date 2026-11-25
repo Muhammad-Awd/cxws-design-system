@@ -41,9 +41,14 @@ describe('presentational components', () => {
     const onNavigate = vi.fn()
     render(<GroupedSidebar groups={[{ label: 'Workspace', items: [{ id: 'overview', label: 'Overview', href: '#overview', active: true }, { id: 'services', label: 'Services', href: '#services' }] }]} onNavigate={onNavigate} />)
     expect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Overview' })).toHaveAttribute('aria-current', 'page')
-    fireEvent.click(screen.getByRole('button', { name: 'Services' }))
+    expect(screen.getByRole('link', { name: 'Overview' })).toHaveAttribute('aria-current', 'page')
+    const services = screen.getByRole('link', { name: 'Services' })
+    expect(services).toHaveAttribute('href', '#services')
+    expect(fireEvent.click(services)).toBe(false)
     expect(onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'services' }))
+    onNavigate.mockClear()
+    expect(fireEvent.click(services, { ctrlKey: true })).toBe(true)
+    expect(onNavigate).not.toHaveBeenCalled()
   })
 
   it('exposes alert and badge text', () => {

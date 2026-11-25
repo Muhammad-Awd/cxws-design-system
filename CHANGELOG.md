@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.6.1] - 2026-11-25
+
+### Fixed
+
+- Grouped sidebar destinations render as links. Ordinary clicks can use the caller's client-side navigation; modified clicks retain native new-tab behavior.
+
 ## [0.6.0] - 2026-11-25
 
 ### Changed

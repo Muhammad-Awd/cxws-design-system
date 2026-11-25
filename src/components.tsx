@@ -641,7 +641,13 @@ function NavigationLinks({ items, onNavigate, compact = false }: { items: NavIte
           aria-current={item.active ? 'page' : undefined}
           aria-disabled={item.disabled || undefined}
           tabIndex={item.disabled ? -1 : undefined}
-          onClick={(event) => { if (item.disabled) event.preventDefault(); else onNavigate?.(item) }}
+          onClick={(event) => {
+            if (item.disabled) { event.preventDefault(); return }
+            if (onNavigate && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+              event.preventDefault()
+              onNavigate(item)
+            }
+          }}
         >
           {item.icon && <span className="cx-nav-link__icon" aria-hidden="true">{item.icon}</span>}
           <span>{item.label}</span>
@@ -678,11 +684,24 @@ export function GroupedSidebar({ groups, label = 'Primary navigation', onNavigat
             <ul className="cx-nav-list">
               {group.items.map((item) => (
                 <li key={item.id}>
-                  <button type="button" className={`cx-nav-link cx-nav-link--button${item.active ? ' is-active' : ''}`} aria-current={item.active ? 'page' : undefined} disabled={item.disabled} onClick={() => onNavigate?.(item)}>
+                  <a
+                    className={`cx-nav-link${item.active ? ' is-active' : ''}${item.disabled ? ' is-disabled' : ''}`}
+                    href={item.disabled ? undefined : item.href}
+                    aria-current={item.active ? 'page' : undefined}
+                    aria-disabled={item.disabled || undefined}
+                    tabIndex={item.disabled ? -1 : undefined}
+                    onClick={(event) => {
+                      if (item.disabled) { event.preventDefault(); return }
+                      if (onNavigate && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                        event.preventDefault()
+                        onNavigate(item)
+                      }
+                    }}
+                  >
                     {item.icon && <span className="cx-nav-link__icon" aria-hidden="true">{item.icon}</span>}
                     <span>{item.label}</span>
                     {item.count != null && <span className="cx-nav-group__count">{item.count}</span>}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
