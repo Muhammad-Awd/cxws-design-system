@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.3.0] - 2026-11-25
+
+### Added
+
+- `GroupedSidebar` for keyboard accessible, sectioned application navigation.
+
 ## [0.2.0] - 2026-11-25
 
 ### Added

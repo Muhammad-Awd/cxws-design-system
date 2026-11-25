@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, EmptyState, Field, Input, Modal, Tabs } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Tabs } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -19,6 +19,22 @@ describe('presentational components', () => {
   it('renders checkbox text as its accessible name', () => {
     render(<Checkbox label="Product updates" />)
     expect(screen.getByRole('checkbox', { name: 'Product updates' })).toBeInTheDocument()
+  })
+
+  it('renders metric summary labels and values', () => {
+    render(<MetricCard label="Active workspaces" value="24" detail="77% of all workspaces" />)
+    expect(screen.getByText('Active workspaces')).toBeInTheDocument()
+    expect(screen.getByText('24')).toBeInTheDocument()
+    expect(screen.getByText('77% of all workspaces')).toBeInTheDocument()
+  })
+
+  it('exposes grouped navigation and sends the selected item to the callback', () => {
+    const onNavigate = vi.fn()
+    render(<GroupedSidebar groups={[{ label: 'Workspace', items: [{ id: 'overview', label: 'Overview', href: '#overview', active: true }, { id: 'services', label: 'Services', href: '#services' }] }]} onNavigate={onNavigate} />)
+    expect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Overview' })).toHaveAttribute('aria-current', 'page')
+    fireEvent.click(screen.getByRole('button', { name: 'Services' }))
+    expect(onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'services' }))
   })
 
   it('exposes alert and badge text', () => {

@@ -13,6 +13,7 @@ import {
   DataTable,
   EmptyState,
   Field,
+  GroupedSidebar,
   Input,
   Modal,
   OverflowMenu,
@@ -77,6 +78,11 @@ function DemoPage() {
             <Alert tone="ok" title="Changes saved">Your workspace settings are up to date.</Alert>
             <Alert tone="danger" title="Unable to load service details">Try again when your connection is available.</Alert>
           </div>
+        </section>
+
+        <section className="cx-demo-section" aria-labelledby="grouped-sidebar-title">
+          <h2 id="grouped-sidebar-title">Grouped navigation</h2>
+          <Card padding="none"><GroupedSidebar groups={[{ label: 'Workspace', items: [{ id: 'overview', label: 'Overview', href: '#overview', icon: <Home />, active: true }, { id: 'services', label: 'Services', href: '#services', icon: <Activity /> }] }]} onNavigate={(item) => setActiveTab(item.id)} /></Card>
         </section>
 
         <section className="cx-demo-section" aria-labelledby="fields-title">

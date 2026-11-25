@@ -641,6 +641,44 @@ export function Sidebar({ items, label = 'Primary navigation', onNavigate, class
   return <aside className={`cx-sidebar${className ? ` ${className}` : ''}`}><nav aria-label={label}><NavigationLinks items={items} onNavigate={onNavigate} /></nav></aside>
 }
 
+export interface NavGroup {
+  label: ReactNode
+  items: Array<NavItem & { count?: ReactNode }>
+}
+
+export interface GroupedSidebarProps {
+  groups: NavGroup[]
+  label?: string
+  onNavigate?: (item: NavItem) => void
+  className?: string
+}
+
+/** Sidebar for apps whose navigation is organized into named sections. */
+export function GroupedSidebar({ groups, label = 'Primary navigation', onNavigate, className = '' }: GroupedSidebarProps) {
+  return (
+    <aside className={`cx-sidebar cx-grouped-sidebar${className ? ` ${className}` : ''}`}>
+      <nav aria-label={label}>
+        {groups.map((group) => (
+          <section className="cx-nav-group" key={String(group.label)}>
+            <h2 className="cx-nav-group__label">{group.label}</h2>
+            <ul className="cx-nav-list">
+              {group.items.map((item) => (
+                <li key={item.id}>
+                  <button type="button" className={`cx-nav-link cx-nav-link--button${item.active ? ' is-active' : ''}`} aria-current={item.active ? 'page' : undefined} disabled={item.disabled} onClick={() => onNavigate?.(item)}>
+                    {item.icon && <span className="cx-nav-link__icon" aria-hidden="true">{item.icon}</span>}
+                    <span>{item.label}</span>
+                    {item.count != null && <span className="cx-nav-group__count">{item.count}</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </nav>
+    </aside>
+  )
+}
+
 export interface BottomNavigationProps extends SidebarProps {
   maxItems?: number
 }
