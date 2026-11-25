@@ -14,6 +14,7 @@ Copy conventions below are drawn only from the customer portal source. Labels ar
 | Success | “Recovery request sent” | “تم إرسال طلب الاستعادة” | OBSERVED — `src/pages/auth/AuthPages.tsx` |
 | Loading announcement | “Loading workspace content” | UNKNOWN | OBSERVED English label only — `src/components/ui/Primitives.tsx` (`PageLoadingSkeleton`) |
 | Copy confirmation | “Copied” | “تم النسخ” | OBSERVED — `src/components/ui/Primitives.tsx` (`CopyPillButton`) |
+| Internal prototype narration | “Email service active. Customer continues alone.” | UNKNOWN | OBSERVED literal, but identified as internal narration rather than usable customer copy — `src/pages/email/EmailPurchaseConnectPages.tsx` |
 
 ## Rules
 
@@ -25,6 +26,9 @@ Copy conventions below are drawn only from the customer portal source. Labels ar
 - **DERIVED** Keep operational messages direct and specific to the current task; the cited examples avoid jokes and unexplained technical wording. This inference comes from those strings only, not a source-written voice guide.
 - **PROPOSED** Prefer an explicit action verb for button labels and keep one action per button. The portal contains examples, but it does not state this as a rule.
 - **PROPOSED** For new loading/error/empty/success copy, keep the same language as the active interface and explain next steps only when the user can take one. The portal does not specify a full voice standard.
+- **PROPOSED (task-directed)** Remove AI-sounding filler, internal narration, and implementation notes from customer-facing text. Say what happened in plain language and show the next available action. This is a requested cleanup rule, not an existing brand policy.
+- **PROPOSED (task-directed)** Keep interface details minimal until requested; put secondary explanation behind “See more” and keep screens to at most two prominent task actions. This pairs with the progressive-disclosure guidance in `design-principles.md`.
+- **PROPOSED (task-directed)** Prefer concrete labels such as “Connect email” or “View invoice” over abstract or promotional copy. Do not claim a service is ready, secure, or successful unless the current state supports that statement.
 
 ## Arabic and English conventions
 

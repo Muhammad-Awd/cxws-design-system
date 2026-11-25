@@ -23,6 +23,11 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 | Keep application decisions such as eligibility, pricing, auth, data fetching, or validation rules outside these components. | PROPOSED | Library boundary chosen for this repository. |
 | Override tokens at the theme boundary instead of forking a component. | PROPOSED | Package usage recommendation; portal code uses CSS variables but does not document a consumer theming contract. |
 | Do not add a decorative accent or shadow unless the extracted token set calls for it. | DERIVED | The component palette is neutral and only one explicit floating shadow is defined in `src/index.css`. |
+| Keep no more than two prominent task actions visible on a screen at once; place less common actions in an accessible overflow menu. | PROPOSED (task-directed) | Requested for the customer portal polish; not an existing portal rule. |
+| Show the essential summary first and put optional technical detail behind a disclosure such as “See more”. | PROPOSED (task-directed) | Requested progressive disclosure; existing `TechnicalDetails` is an observed portal pattern, but this usage rule is new. |
+| Use a small relationship diagram when it makes infrastructure connections easier to understand; pair icons with clear labels. | PROPOSED (task-directed) | Requested visual explanation; do not add decorative or misleading diagrams. |
+| Keep team administration and other occasional destinations under a “More” navigation group when they are not core daily tasks. | PROPOSED (task-directed) | Requested while simplifying the customer portal; not an existing brand rule. |
+| Preserve all existing capabilities when reducing visible controls; make secondary actions discoverable through menus or disclosures. | PROPOSED (task-directed) | User requested simplification without feature loss. |
 
 ## Source reconciliation
 

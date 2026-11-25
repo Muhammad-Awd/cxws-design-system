@@ -15,6 +15,7 @@ import {
   Field,
   Input,
   Modal,
+  OverflowMenu,
   PageHeader,
   Select,
   Skeleton,
@@ -62,7 +63,7 @@ function DemoPage() {
       }
     >
       <div className="cx-demo-page">
-        <PageHeader title="Overview" description="Manage your CloudX services and account." eyebrow="Customer Experience" actions={<Button>Open a support ticket</Button>} />
+        <PageHeader title="Overview" description="Manage your CloudX services and account." eyebrow="Customer Experience" actions={<><Button>Open a support ticket</Button><OverflowMenu label="More workspace actions" items={[{ id: 'team', label: 'Invite a teammate', onSelect: () => setActiveTab('settings') }, { id: 'copy', label: 'Copy workspace ID', onSelect: () => setActiveTab('activity') }]} /></>} />
 
         <section className="cx-demo-section" aria-labelledby="states-title">
           <h2 id="states-title">Status and feedback</h2>
