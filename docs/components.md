@@ -5,7 +5,7 @@ The examples use `@muhammad-awd/cxws-design-system`, the package name chosen for
 ```tsx
 import {
   Alert, AppShell, Badge, BottomNavigation, Button, Card, Checkbox, DataTable,
-  EmptyState, Field, Form, IconButton, Input, Modal, Navbar, PageHeader, Select,
+  EmptyState, Field, Form, IconButton, Input, Modal, Navbar, OverflowMenu, PageHeader, Select,
   Sidebar, Skeleton, Spinner, TabPanel, Tabs, Textarea, CloudXLogo,
   DipduxCoBrandLockup, DipduxOfficialMark,
 } from '@muhammad-awd/cxws-design-system'
@@ -30,6 +30,20 @@ Variants: `primary`, `secondary`, `outline`, `ghost`, `danger`; sizes: `sm`, `md
 ```
 
 An accessible name is required through `label`.
+
+### `OverflowMenu`
+
+```tsx
+<OverflowMenu
+  label="More mailbox actions"
+  items={[
+    { id: 'edit', label: 'Edit mailbox', onSelect: onEdit },
+    { id: 'cancel', label: 'Cancel mailbox', tone: 'danger', onSelect: onCancel },
+  ]}
+/>
+```
+
+Use for secondary or occasional actions when keeping the screen focused. Keep the most important action visible; the menu is not a substitute for a clear primary action. Menus support keyboard navigation and return focus when dismissed with Escape.
 
 ### `Input`
 
@@ -82,6 +96,14 @@ Tones: `ok`, `warn`, `danger`, `neutral`. Supply a label in text; the default to
 ```
 
 ## Molecules
+
+### `MetricCard`
+
+Use `MetricCard` to present one named value with optional supporting detail, icon, and status. Keep its data meaning in caller props.
+
+```tsx
+<MetricCard label="Active workspaces" value="24" detail="77% of all workspaces" icon={<Globe />} />
+```
 
 ### `Field`
 

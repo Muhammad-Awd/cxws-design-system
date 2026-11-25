@@ -4,6 +4,7 @@ import {
   useEffect,
   useId,
   useRef,
+  useState,
   type ButtonHTMLAttributes,
   type CSSProperties,
   type FormHTMLAttributes,
@@ -14,7 +15,7 @@ import {
   type TableHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react'
-import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, HelpCircle, LoaderCircle, MinusCircle, X } from 'lucide-react'
+import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, HelpCircle, LoaderCircle, MinusCircle, MoreHorizontal, X } from 'lucide-react'
 import dipduxRed from './assets/dipdux-wordmark-red.png'
 import dipduxWhite from './assets/dipdux-wordmark-white.png'
 
@@ -186,6 +187,109 @@ export function Badge({ tone = 'neutral', children, icon, className = '' }: Badg
   )
 }
 
+export interface OverflowMenuItem {
+  id: string
+  label: string
+  onSelect: () => void
+  icon?: ReactNode
+  tone?: 'neutral' | 'danger'
+  disabled?: boolean
+}
+
+export function OverflowMenu({
+  label,
+  items,
+}: {
+  label: string
+  items: OverflowMenuItem[]
+}) {
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const menuId = useId()
+
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (!menuRef.current?.parentElement?.contains(event.target as Node)) setOpen(false)
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    requestAnimationFrame(() => menuRef.current?.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus())
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  const onMenuKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return
+    event.preventDefault()
+    const enabled = Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not(:disabled)') ?? [])
+    if (!enabled.length) return
+    const active = enabled.indexOf(document.activeElement as HTMLButtonElement)
+    const next = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? enabled.length - 1
+        : (active + (event.key === 'ArrowDown' ? 1 : -1) + enabled.length) % enabled.length
+    enabled[next].focus()
+  }
+
+  return (
+    <div className="cx-overflow-menu">
+      <button
+        ref={buttonRef}
+        type="button"
+        aria-label={label}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen((value) => !value)}
+        className="cx-icon-button cx-overflow-menu__trigger"
+      >
+        <MoreHorizontal size={18} strokeWidth={1.5} aria-hidden="true" />
+      </button>
+      {open && (
+        <div
+          ref={menuRef}
+          id={menuId}
+          role="menu"
+          aria-label={label}
+          onKeyDown={onMenuKeyDown}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false)
+          }}
+          className="cx-overflow-menu__items"
+        >
+          {items.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="menuitem"
+              disabled={item.disabled}
+              onClick={() => {
+                setOpen(false)
+                item.onSelect()
+              }}
+              className={`cx-overflow-menu__item${item.tone === 'danger' ? ' cx-overflow-menu__item--danger' : ''}`}
+            >
+              {item.icon && <span aria-hidden="true">{item.icon}</span>}
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export interface CardProps {
   children: ReactNode
   padding?: 'none' | 'sm' | 'md' | 'lg'
@@ -194,6 +298,31 @@ export interface CardProps {
 
 export function Card({ children, padding = 'md', className = '' }: CardProps) {
   return <div className={`cx-card cx-card--${padding}${className ? ` ${className}` : ''}`}>{children}</div>
+}
+
+export interface MetricCardProps {
+  label: ReactNode
+  value: ReactNode
+  detail?: ReactNode
+  icon?: ReactNode
+  tone?: 'ok' | 'warn' | 'danger' | 'neutral'
+  status?: ReactNode
+  className?: string
+}
+
+/** Compact summary card for a single metric and its optional status. */
+export function MetricCard({ label, value, detail, icon, tone = 'neutral', status, className = '' }: MetricCardProps) {
+  return (
+    <Card className={`cx-metric-card${className ? ` ${className}` : ''}`}>
+      <div className="cx-metric-card__top">
+        {icon && <span className="cx-metric-card__icon" aria-hidden="true">{icon}</span>}
+        {status && <Badge tone={tone}>{status}</Badge>}
+      </div>
+      <p className="cx-metric-card__label">{label}</p>
+      <p className="cx-metric-card__value">{value}</p>
+      {detail && <p className="cx-metric-card__detail">{detail}</p>}
+    </Card>
+  )
 }
 
 export interface AlertProps {

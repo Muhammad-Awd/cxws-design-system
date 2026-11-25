@@ -32,6 +32,10 @@ export function Example() {
 
 The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. If your app already loads Tailwind, import `tokens.css` instead of `styles.css` and ensure the consuming build includes the package's CSS. Components are typed, presentational, and use props/callbacks; applications own data, validation rules, authorization, and side effects.
 
+Git-based installs run the package build from `prepare`, so consumers can install directly from the repository without relying on checked-in `dist` output.
+
+For customer-facing screens, follow [design principles](docs/design-principles.md) and [UX writing](docs/ux-writing.md): keep at most two prominent task actions visible, put secondary actions in an accessible overflow menu, and reveal optional detail on demand. These portal-simplification rules are marked **PROPOSED (task-directed)** because they were requested as guidance and are not extracted brand policy.
+
 ## Theming
 
 Dark is the default theme, matching the portal. Set `data-theme="light"` on the document or a subtree for the light palette. Override CSS custom properties on a wrapper to change a surface, text, or primary accent without changing components:

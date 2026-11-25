@@ -2,6 +2,13 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.2.0] - 2026-11-25
+
+### Added
+
+- `MetricCard`, a typed summary card for labeled values, details, icons, and optional status.
+- A `prepare` build for Git-based package installs.
+
 ## [0.1.0] - 2026-11-24
 
 ### Added
