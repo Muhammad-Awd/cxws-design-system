@@ -20,7 +20,7 @@ Values are tagged `OBSERVED` when specified in portal source and `DERIVED` when 
 
 ## Shared application layout
 
-- **OBSERVED** `--cx-content-max` (72rem), `--cx-page-gutter` (1rem, then 1.5rem at `sm`), spacing tokens, and `sm` through `2xl` breakpoints are exported by `src/tokens.css`.
-- **DERIVED** Tailwind consumers that import the package stylesheet use the same spacing utility base (`--spacing: var(--cx-space-1)`) and responsive breakpoints (`--breakpoint-*` values). Thus `gap-3`, `p-4`, `sm:*`, and `lg:*` resolve from the shared system.
+- **OBSERVED** `--cx-content-max` (72rem), `--cx-page-gutter` (1rem, then 1.5rem at `sm`), and the spacing tokens are in `src/tokens.css`. `src/tailwind-theme.css` exports the responsive grid breakpoints.
+- **DERIVED** Tailwind consumers that import the package theme use the same spacing utility base (`--spacing: var(--cx-space-1)`) and breakpoints (`sm` 40rem, `md` 48rem, `lg` 64rem, `xl` 80rem, `2xl` 96rem). Thus `gap-3`, `p-4`, `sm:*`, and `lg:*` resolve from the shared system. These breakpoint values match the Tailwind CSS 4 defaults used by the portal source.
 - **OBSERVED** `.cx-content-container` and `.cx-page-stack` provide shared max-width, centered layout, and vertical stack spacing. Source: `src/styles.css`.
 - **UNKNOWN** A single canonical column count for every page. Use responsive grid columns that follow each page's content while keeping gaps and breakpoints on shared tokens.
