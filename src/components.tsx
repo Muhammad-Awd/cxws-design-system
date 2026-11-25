@@ -16,8 +16,6 @@ import {
   type TextareaHTMLAttributes,
 } from 'react'
 import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, HelpCircle, LoaderCircle, MinusCircle, MoreHorizontal, X } from 'lucide-react'
-import dipduxRed from './assets/dipdux-wordmark-red.png'
-import dipduxWhite from './assets/dipdux-wordmark-white.png'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
 export type ControlSize = 'sm' | 'md' | 'lg'
@@ -785,28 +783,4 @@ export function CloudXLogo({
       {showWorkspaceLabel && <><span className="cx-logo__divider" aria-hidden="true" /><span className="cx-logo__workspace">{workspaceLabel}</span></>}
     </span>
   )
-}
-
-export interface CoBrandLockupProps {
-  surface?: 'auto' | 'light'
-  className?: string
-}
-
-export function DipduxCoBrandLockup({ surface = 'auto', className = '' }: CoBrandLockupProps) {
-  return (
-    <div dir="ltr" className={`cx-cobrand${className ? ` ${className}` : ''}`} aria-label="Dipdux and CloudX">
-      <img src={dipduxRed} alt="Dipdux" className="cx-cobrand__dipdux" />
-      <span className={`cx-cobrand__divider${surface === 'light' ? ' cx-cobrand__divider--light' : ''}`} aria-hidden="true" />
-      <CloudXLogo size="sm" surface={surface} />
-    </div>
-  )
-}
-
-export interface DipduxOfficialMarkProps {
-  variant?: 'red' | 'white'
-  className?: string
-}
-
-export function DipduxOfficialMark({ variant = 'red', className = '' }: DipduxOfficialMarkProps) {
-  return <img src={variant === 'red' ? dipduxRed : dipduxWhite} alt="Dipdux" className={`cx-dipdux-mark${className ? ` ${className}` : ''}`} />
 }

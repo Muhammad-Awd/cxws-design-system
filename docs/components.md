@@ -7,7 +7,6 @@ import {
   Alert, AppShell, Badge, BottomNavigation, Button, Card, Checkbox, DataTable,
   EmptyState, Field, Form, IconButton, Input, Modal, Navbar, OverflowMenu, PageHeader, Select,
   Sidebar, Skeleton, Spinner, TabPanel, Tabs, Textarea, CloudXLogo,
-  DipduxCoBrandLockup, DipduxOfficialMark,
 } from '@muhammad-awd/cxws-design-system'
 import '@muhammad-awd/cxws-design-system/styles.css'
 ```
@@ -232,22 +231,6 @@ It displays up to five items; the layout switches visibility through CSS at the 
 ```
 
 The SVG paths, display sizes, text variant, and optional workspace label are copied from `src/components/brand/CloudXLogo.tsx` in the portal.
-
-### `DipduxCoBrandLockup`
-
-```tsx
-<DipduxCoBrandLockup surface="auto" />
-```
-
-Uses copied Dipdux wordmark PNGs from the portal repository; files are copied into this package and remain in the source checkout.
-
-### `DipduxOfficialMark`
-
-```tsx
-<DipduxOfficialMark variant="red" />
-```
-
-`variant` accepts `red` or `white` to select the matching copied wordmark asset.
 
 ### `AppShell`
 

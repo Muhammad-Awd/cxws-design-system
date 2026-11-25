@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.6.0] - 2026-11-25
+
+### Changed
+
+- Use the CloudX mark alone in application and document branding. Remove Dipdux logo components and assets.
+
 ## [0.5.0] - 2026-11-25
 
 ### Added

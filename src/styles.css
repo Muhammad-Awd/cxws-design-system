@@ -222,11 +222,6 @@
 .cx-logo__mark--light { color: var(--doc-text); }
 .cx-logo__divider { width: 1px; height: 1rem; background: var(--cx-border-strong); }
 .cx-logo__workspace { color: var(--cx-text-subtle); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.025em; }
-.cx-cobrand { display: inline-flex; align-items: center; gap: 0.875rem; user-select: none; }
-.cx-cobrand__dipdux { display: block; width: auto; height: 1.625rem; flex: none; object-fit: contain; }
-.cx-cobrand__divider { display: inline-block; width: 0.15625rem; height: 1.25rem; flex: none; background: var(--cx-text-subtle); }
-.cx-cobrand__divider--light { background: var(--doc-quiet); }
-.cx-dipdux-mark { display: block; width: auto; height: 1.75rem; flex: none; object-fit: contain; user-select: none; }
 .cx-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
 @keyframes cx-spin { to { transform: rotate(360deg); } }

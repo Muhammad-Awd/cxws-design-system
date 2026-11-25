@@ -34,7 +34,7 @@ The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. If
 
 ### Brand and layout
 
-`CloudXLogo`, `DipduxCoBrandLockup`, and `DipduxOfficialMark` are exported by the package. Use `CloudXLogo` for the CloudX mark in application navigation; the underlying vector and Dipdux wordmark assets live in this repository. Tailwind responsive grid utilities such as `grid-cols-*`, `gap-*`, and `sm:*` consume the package's shared spacing and breakpoint theme.
+`CloudXLogo` is exported by the package for application navigation and document headers. Tailwind responsive grid utilities such as `grid-cols-*`, `gap-*`, and `sm:*` consume the package's shared spacing and breakpoint theme.
 
 ```css
 @import '@muhammad-awd/cxws-design-system/tailwind-theme.css';

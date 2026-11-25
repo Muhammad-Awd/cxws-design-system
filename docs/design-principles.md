@@ -11,6 +11,7 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 - **OBSERVED** Fields show labels above inputs, helper text below, and validation errors below with an icon. Source: `src/components/ui/Primitives.tsx` (`TextField`, `SelectField`, `TextAreaField`).
 - **DERIVED** Keep form feedback close to the field it describes. The portal associates helper/error text through `aria-describedby` and renders it adjacent to the control. Source: `src/components/ui/Primitives.tsx`.
 - **OBSERVED** Cards use a border and a surface fill; the portal defines control, card, and sheet radii separately. Source: `src/index.css`, `src/components/ui/Primitives.tsx`.
+- **OBSERVED** Current application and document branding uses the CloudX logo alone. Source: `src/components/brand/CloudXLogo.tsx`, `src/components/layout/AppLayouts.tsx`, `src/pages/billing/BillingPages.tsx`, and `src/pages/reports/ReportsPage.tsx`.
 
 ## Use / avoid
 
@@ -31,10 +32,10 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 
 ## Source reconciliation
 
-The attached Dipdux brand-guidelines DOCX was consulted as a separate reference document. It is not treated as an instruction that supersedes the requested portal-source extraction. Some statements differ from the portal implementation: the document names SF Arabic while the portal loads IBM Plex Sans Arabic; it describes Bennu Red for primary calls to action while the portal's core primary button uses white/near-black values. This package follows the portal's current code values. The attached document's intended authority over this customer portal is **UNKNOWN**.
+The attached Dipdux brand-guidelines DOCX was consulted as a separate reference document. It is not treated as an instruction that supersedes the requested portal-source extraction. Some statements differ from the portal implementation: the document names SF Arabic while the portal loads IBM Plex Sans Arabic; it describes Bennu Red for primary calls to action while the portal's core primary button uses white/near-black values. This package follows the portal's current code values. The product owner's later instruction to use CloudX branding alone supersedes the document's co-branding examples.
 
 ## Unknowns
 
 - **UNKNOWN** No explicit written design philosophy or component governance policy was found in the portal source.
 - **UNKNOWN** Whether consumers may alter semantic status colors or typography while preserving CloudX brand approval.
-- **UNKNOWN** Any requirement to use the attached brand-guidelines values where they differ from the running portal source.
+- **UNKNOWN** Any requirement to use the attached brand-guidelines values other than its superseded co-branding examples where they differ from the running portal source.
