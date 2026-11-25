@@ -24,6 +24,7 @@ import {
   TabPanel,
   Tabs,
   Textarea,
+  Toggle,
 } from './components'
 import './demo.css'
 
@@ -43,6 +44,7 @@ function DemoPage() {
   const [activeTab, setActiveTab] = useState('overview')
   const [modalOpen, setModalOpen] = useState(false)
   const [isLight, setIsLight] = useState(false)
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
 
   function toggleTheme() {
     const next = !isLight
@@ -100,6 +102,7 @@ function DemoPage() {
               </Field>
               <Checkbox label="Email me about important service updates" />
             </div>
+            <div className="cx-demo-row"><Toggle checked={notificationsEnabled} onCheckedChange={setNotificationsEnabled} label="Email service updates" /></div>
           </Card>
         </section>
 

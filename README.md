@@ -4,7 +4,7 @@ Presentational React components and CSS design tokens extracted from the CloudX 
 
 ## Package
 
-The chosen package name is `@muhammad-awd/cxws-design-system` and the current version is `0.3.1`. Both choices are repository setup decisions, not portal conventions; change the package name in `package.json` and the examples if your publishing scope differs.
+The chosen package name is `@muhammad-awd/cxws-design-system` and the current version is `0.4.0`. Both choices are repository setup decisions, not portal conventions; change the package name in `package.json` and the examples if your publishing scope differs.
 
 ## Install
 

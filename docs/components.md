@@ -73,6 +73,14 @@ Use with `Field` to supply a visible associated label and hint/error text.
 <Checkbox name="updates" label="Product updates" description="Occasional service notices." />
 ```
 
+### `Toggle`
+
+Use a controlled switch for a single binary setting. The application owns the current value.
+
+```tsx
+<Toggle checked={enabled} onCheckedChange={setEnabled} aria-label="Enable notifications" />
+```
+
 ### `Badge`
 
 ```tsx

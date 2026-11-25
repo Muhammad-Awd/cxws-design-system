@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.4.0] - 2026-11-25
+
+### Added
+
+- Controlled `Toggle` switch with a visible thumb, semantic state, and callback.
+
 ## [0.3.1] - 2026-11-25
 
 ### Fixed

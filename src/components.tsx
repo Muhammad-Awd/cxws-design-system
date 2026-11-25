@@ -115,6 +115,22 @@ export function Checkbox({ label, description, className = '', id, ...props }: C
   )
 }
 
+export interface ToggleProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'type'> {
+  checked: boolean
+  onCheckedChange: (checked: boolean) => void
+  label?: ReactNode
+}
+
+/** Compact controlled switch for a single on/off setting. */
+export function Toggle({ checked, onCheckedChange, label, className = '', disabled, ...props }: ToggleProps) {
+  return (
+    <button type="button" role="switch" aria-checked={checked} disabled={disabled} className={`cx-toggle${checked ? ' is-checked' : ''}${className ? ` ${className}` : ''}`} onClick={() => onCheckedChange(!checked)} {...props}>
+      <span className="cx-toggle__track" aria-hidden="true"><span className="cx-toggle__thumb" /></span>
+      {label && <span className="cx-toggle__label">{label}</span>}
+    </button>
+  )
+}
+
 export interface FieldProps {
   id: string
   label: ReactNode

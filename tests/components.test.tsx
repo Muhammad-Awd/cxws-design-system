@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Tabs } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -19,6 +19,15 @@ describe('presentational components', () => {
   it('renders checkbox text as its accessible name', () => {
     render(<Checkbox label="Product updates" />)
     expect(screen.getByRole('checkbox', { name: 'Product updates' })).toBeInTheDocument()
+  })
+
+  it('exposes toggle checked state and reports the requested next value', () => {
+    const onCheckedChange = vi.fn()
+    render(<Toggle checked={false} onCheckedChange={onCheckedChange} aria-label="Enable account" />)
+    const toggle = screen.getByRole('switch', { name: 'Enable account' })
+    expect(toggle).toHaveAttribute('aria-checked', 'false')
+    fireEvent.click(toggle)
+    expect(onCheckedChange).toHaveBeenCalledWith(true)
   })
 
   it('renders metric summary labels and values', () => {
