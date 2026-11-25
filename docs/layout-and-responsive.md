@@ -17,3 +17,10 @@ Values are tagged `OBSERVED` when specified in portal source and `DERIVED` when 
 - **DERIVED** Keep primary navigation compact on small viewports and place wider information in the content region; this follows the sidebar/bottom-nav switch. No standalone written responsive philosophy was found.
 - **UNKNOWN** A single canonical page grid for every route; the portal uses multiple page-specific layouts.
 - **UNKNOWN** Minimum supported viewport width, container behavior beyond inspected pages, and exact overflow/scroll behavior for every route.
+
+## Shared application layout
+
+- **OBSERVED** `--cx-content-max` (72rem), `--cx-page-gutter` (1rem, then 1.5rem at `sm`), spacing tokens, and `sm` through `2xl` breakpoints are exported by `src/tokens.css`.
+- **DERIVED** Tailwind consumers that import the package stylesheet use the same spacing utility base (`--spacing: var(--cx-space-1)`) and responsive breakpoints (`--breakpoint-*` values). Thus `gap-3`, `p-4`, `sm:*`, and `lg:*` resolve from the shared system.
+- **OBSERVED** `.cx-content-container` and `.cx-page-stack` provide shared max-width, centered layout, and vertical stack spacing. Source: `src/styles.css`.
+- **UNKNOWN** A single canonical column count for every page. Use responsive grid columns that follow each page's content while keeping gaps and breakpoints on shared tokens.

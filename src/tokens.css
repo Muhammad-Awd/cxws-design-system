@@ -1,6 +1,7 @@
 /* Values in this file are copied from the customer portal's src/index.css.
    Tailwind scale aliases are retained so consuming Tailwind apps can use them. */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import './tailwind-theme.css';
 @import 'tailwindcss';
 
 @font-face {
@@ -201,11 +202,6 @@
   --cx-motion-control-duration: 150ms;
   --cx-motion-surface-duration: 250ms;
   --cx-motion-sheet-duration: 400ms;
-  --cx-breakpoint-sm: 40rem;
-  --cx-breakpoint-md: 48rem;
-  --cx-breakpoint-lg: 64rem;
-  --cx-breakpoint-xl: 80rem;
-  --cx-breakpoint-2xl: 96rem;
 }
 
 @layer base {

@@ -2,6 +2,14 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.5.0] - 2026-11-25
+
+### Added
+
+- Shared Tailwind spacing and responsive breakpoint values derived from the CloudX tokens.
+- Shared content container and page stack layout classes for consuming applications.
+- The CloudX vector logo and Dipdux wordmark remain exported from the shared package for app reuse.
+
 ## [0.4.0] - 2026-11-25
 
 ### Added

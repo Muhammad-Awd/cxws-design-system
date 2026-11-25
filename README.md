@@ -30,7 +30,17 @@ export function Example() {
 }
 ```
 
-The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. If your app already loads Tailwind, import `tokens.css` instead of `styles.css` and ensure the consuming build includes the package's CSS. Components are typed, presentational, and use props/callbacks; applications own data, validation rules, authorization, and side effects.
+The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. If your app loads Tailwind itself, import `tailwind-theme.css` before `tailwindcss` and import `styles.css` for the shared components. This makes spacing utilities and responsive grid breakpoints resolve from shared CloudX values. Use `.cx-page-stack` and `.cx-content-container` for common content widths and rhythm. Components are typed, presentational, and use props/callbacks; applications own data, validation rules, authorization, and side effects.
+
+### Brand and layout
+
+`CloudXLogo`, `DipduxCoBrandLockup`, and `DipduxOfficialMark` are exported by the package. Use `CloudXLogo` for the CloudX mark in application navigation; the underlying vector and Dipdux wordmark assets live in this repository. Tailwind responsive grid utilities such as `grid-cols-*`, `gap-*`, and `sm:*` consume the package's shared spacing and breakpoint theme.
+
+```css
+@import '@muhammad-awd/cxws-design-system/tailwind-theme.css';
+@import 'tailwindcss';
+@import '@muhammad-awd/cxws-design-system/styles.css';
+```
 
 Git-based installs run the package build from `prepare`, so consumers can install directly from the repository without relying on checked-in `dist` output.
 
