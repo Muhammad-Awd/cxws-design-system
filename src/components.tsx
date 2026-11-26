@@ -973,7 +973,7 @@ export function Dropzone({
 
   function take(file: File | undefined) {
     if (!file) return
-    if (!accept.includes(file.type)) { onReject?.('That file type is not supported.'); return }
+    if (!accept.includes(file.type)) { onReject?.(`That file type is not supported. Use ${accept.map((type) => type.split('/')[1].toUpperCase()).join(', ')}.`); return }
     if (file.size > maxBytes) { onReject?.(`That file is larger than ${Math.round(maxBytes / 1024 / 1024)} MB.`); return }
     onFile(file)
   }

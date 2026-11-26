@@ -120,7 +120,7 @@ describe('presentational components', () => {
     const { container } = render(<Dropzone onFile={onFile} onReject={onReject} maxBytes={10} />)
     const input = container.querySelector('input[type=file]') as HTMLInputElement
     fireEvent.change(input, { target: { files: [new File(['x'], 'a.txt', { type: 'text/plain' })] } })
-    expect(onReject).toHaveBeenCalledWith('That file type is not supported.')
+    expect(onReject).toHaveBeenCalledWith('That file type is not supported. Use JPEG, PNG, WEBP, GIF.')
     fireEvent.change(input, { target: { files: [new File(['x'.repeat(20)], 'a.png', { type: 'image/png' })] } })
     expect(onReject).toHaveBeenCalledTimes(2)
     fireEvent.change(input, { target: { files: [new File(['x'], 'a.png', { type: 'image/png' })] } })
