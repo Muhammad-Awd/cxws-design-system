@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Pagination, ProgressBar, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Pagination, ProgressBar, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -146,5 +146,12 @@ describe('presentational components', () => {
     render(<Alert tone="warn" title="Limit reached" action={<button>Add capacity</button>}>Upgrade to add more.</Alert>)
     expect(screen.getByRole('button', { name: 'Add capacity' })).toBeInTheDocument()
     expect(screen.getByText('Upgrade to add more.')).toBeInTheDocument()
+  })
+
+  it('names a search field for assistive technology and reports typing', () => {
+    const onChange = vi.fn()
+    render(<SearchField label="Search mailboxes" placeholder="Address" onChange={onChange} />)
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Search mailboxes' }), { target: { value: 'info' } })
+    expect(onChange).toHaveBeenCalled()
   })
 })

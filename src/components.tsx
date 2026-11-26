@@ -16,7 +16,7 @@ import {
   type TableHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react'
-import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, HelpCircle, ImagePlus, LoaderCircle, MinusCircle, MoreHorizontal, X } from 'lucide-react'
+import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, HelpCircle, ImagePlus, LoaderCircle, MinusCircle, MoreHorizontal, Search, X } from 'lucide-react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
 export type ControlSize = 'sm' | 'md' | 'lg'
@@ -105,6 +105,24 @@ export function Select({ className = '', children, ...props }: SelectProps) {
     </span>
   )
 }
+
+export interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  /** Accessible name. Shown to assistive technology only. */
+  label: string
+}
+
+/** Search box with a leading icon. */
+export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(function SearchField({ label, className = '', id, ...props }, ref) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  return (
+    <div className={`cx-search${className ? ` ${className}` : ''}`}>
+      <label className="cx-sr-only" htmlFor={inputId}>{label}</label>
+      <Search className="cx-search__icon" aria-hidden="true" />
+      <input ref={ref} id={inputId} type="search" className="cx-input cx-search__input" {...props} />
+    </div>
+  )
+})
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode
