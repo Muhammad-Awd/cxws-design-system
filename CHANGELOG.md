@@ -10,6 +10,8 @@ Changes to this project are recorded here. Versioning follows SemVer; package na
 - Added `Drawer`, `DetailRow`, `DetailList`, `ProgressBar`, `Dropzone` and `Pagination`.
 - `Modal` accepts `size` (`sm`, `md`, `lg`, `xl`).
 - Buttons press down slightly while active.
+- `Input` accepts `suffix`; `Alert` accepts `action`.
+- New entry `@muhammad-awd/cxws-design-system/tailwind.css` for Tailwind v4 apps. It brings tokens, the Tailwind theme values, fonts, base styles and every component class through one import, so apps no longer copy the theme. `styles.css` stays the pre-compiled bundle.
 
 ## [0.6.1] - 2026-11-25
 

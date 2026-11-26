@@ -30,7 +30,13 @@ export function Example() {
 }
 ```
 
-The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. If your app loads Tailwind itself, import `tailwind-theme.css` before `tailwindcss` and import `styles.css` for the shared components. This makes spacing utilities and responsive grid breakpoints resolve from shared CloudX values. Use `.cx-page-stack` and `.cx-content-container` for common content widths and rhythm. Components are typed, presentational, and use props/callbacks; applications own data, validation rules, authorization, and side effects.
+The component stylesheet imports Tailwind CSS 4 and the portal-derived theme. **If your app uses Tailwind v4, use one import instead:**
+
+```css
+@import '@muhammad-awd/cxws-design-system/tailwind.css';
+```
+
+It brings the tokens, the Tailwind theme values (colors such as `bg-cx-surface`, `min-h-tap`, `text-micro`), fonts, base styles and every `cx-` component class, so your app does not copy the theme. Plain-CSS apps keep using `styles.css`, which is pre-compiled. If you load Tailwind another way, import `tailwind-theme.css` before `tailwindcss` and `styles.css` for the shared components. This makes spacing utilities and responsive grid breakpoints resolve from shared CloudX values. Use `.cx-page-stack` and `.cx-content-container` for common content widths and rhythm. Components are typed, presentational, and use props/callbacks; applications own data, validation rules, authorization, and side effects.
 
 ### Brand and layout
 
