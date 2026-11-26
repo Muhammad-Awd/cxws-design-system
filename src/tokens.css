@@ -67,6 +67,18 @@
   --color-cx-secondary-bg: var(--cx-secondary-bg);
   --color-cx-secondary-hover: var(--cx-secondary-hover);
   --color-cx-accent: var(--cx-accent);
+  --color-cx-status-ok-fg: var(--cx-status-ok-fg);
+  --color-cx-status-ok-bg: var(--cx-status-ok-bg);
+  --color-cx-status-ok-border: var(--cx-status-ok-border);
+  --color-cx-status-warn-fg: var(--cx-status-warn-fg);
+  --color-cx-status-warn-bg: var(--cx-status-warn-bg);
+  --color-cx-status-warn-border: var(--cx-status-warn-border);
+  --color-cx-status-danger-fg: var(--cx-status-danger-fg);
+  --color-cx-status-danger-bg: var(--cx-status-danger-bg);
+  --color-cx-status-danger-border: var(--cx-status-danger-border);
+  --color-cx-status-neutral-fg: var(--cx-status-neutral-fg);
+  --color-cx-status-neutral-bg: var(--cx-status-neutral-bg);
+  --color-cx-status-neutral-border: var(--cx-status-neutral-border);
   --color-cx-accent-text: var(--cx-accent-text);
   --color-doc-bg: var(--doc-bg);
   --color-doc-subtle: var(--doc-subtle);
