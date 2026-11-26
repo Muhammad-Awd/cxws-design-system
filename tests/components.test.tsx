@@ -135,4 +135,16 @@ describe('presentational components', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next page' }))
     expect(onPageChange).toHaveBeenCalledWith(2)
   })
+
+  it('shows an input suffix and keeps the label connected to the input', () => {
+    render(<Field id="mailbox" label="Mailbox"><Input suffix="@atlas.example" /></Field>)
+    expect(screen.getByLabelText('Mailbox')).toBeInTheDocument()
+    expect(screen.getByText('@atlas.example')).toBeInTheDocument()
+  })
+
+  it('renders an alert action next to the message', () => {
+    render(<Alert tone="warn" title="Limit reached" action={<button>Add capacity</button>}>Upgrade to add more.</Alert>)
+    expect(screen.getByRole('button', { name: 'Add capacity' })).toBeInTheDocument()
+    expect(screen.getByText('Upgrade to add more.')).toBeInTheDocument()
+  })
 })

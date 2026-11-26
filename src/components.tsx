@@ -1,5 +1,6 @@
 import {
   cloneElement,
+  forwardRef,
   isValidElement,
   useEffect,
   useId,
@@ -69,11 +70,22 @@ export function IconButton({ label, variant = 'ghost', className = '', children,
   )
 }
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement>
-
-export function Input({ className = '', ...props }: InputProps) {
-  return <input className={`cx-input${className ? ` ${className}` : ''}`} {...props} />
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  /** Fixed text shown after the value, such as a domain. Rendered left-to-right inside the field. */
+  suffix?: ReactNode
 }
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input({ className = '', suffix, ...props }, ref) {
+  if (suffix === undefined || suffix === null) {
+    return <input ref={ref} className={`cx-input${className ? ` ${className}` : ''}`} {...props} />
+  }
+  return (
+    <span className="cx-input-group">
+      <input ref={ref} className={`cx-input cx-input--grouped${className ? ` ${className}` : ''}`} {...props} />
+      <span className="cx-input-group__suffix"><bdi dir="ltr">{suffix}</bdi></span>
+    </span>
+  )
+})
 
 export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
 
@@ -342,21 +354,24 @@ export function MetricCard({ label, value, detail, icon, tone = 'neutral', statu
 export interface AlertProps {
   tone?: StatusTone
   title?: ReactNode
-  children: ReactNode
+  children?: ReactNode
+  /** Optional call to action shown after the message. */
+  action?: ReactNode
   onDismiss?: () => void
   dismissLabel?: string
   className?: string
 }
 
-export function Alert({ tone = 'neutral', title, children, onDismiss, dismissLabel = 'Dismiss message', className = '' }: AlertProps) {
+export function Alert({ tone = 'neutral', title, children, action, onDismiss, dismissLabel = 'Dismiss message', className = '' }: AlertProps) {
   const Icon = tone === 'ok' ? CheckCircle2 : tone === 'warn' ? AlertTriangle : tone === 'danger' ? AlertCircle : HelpCircle
   return (
     <div className={`cx-alert cx-alert--${tone}${className ? ` ${className}` : ''}`} role={tone === 'danger' ? 'alert' : 'status'}>
       <Icon className="cx-icon cx-alert__icon" aria-hidden="true" />
       <div className="cx-alert__body">
         {title && <p className="cx-alert__title">{title}</p>}
-        <div className="cx-alert__description">{children}</div>
+        {children && <div className="cx-alert__description">{children}</div>}
       </div>
+      {action && <div className="cx-alert__action">{action}</div>}
       {onDismiss && <IconButton label={dismissLabel} onClick={onDismiss}><X className="cx-icon" aria-hidden="true" /></IconButton>}
     </div>
   )

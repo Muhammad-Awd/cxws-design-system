@@ -294,3 +294,12 @@
 .cx-pagination__page:hover:not(:disabled), .cx-pagination__step:hover:not(:disabled) { background: var(--cx-secondary-bg); color: var(--cx-text); }
 .cx-pagination__page[aria-current='page'] { background: var(--cx-accent); color: var(--cx-accent-fg); }
 .cx-pagination__step:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* Input with a fixed suffix (for example a domain) */
+.cx-input-group { display: flex; min-height: var(--cx-tap-height); align-items: stretch; overflow: hidden; border: var(--cx-border-width, 1px) solid var(--cx-border-strong); border-radius: var(--cx-radius-control); background: var(--cx-surface-subtle); transition: border-color 150ms ease-out; }
+.cx-input-group:focus-within { border-color: var(--cx-text); }
+.cx-input-group:has(.cx-input[aria-invalid='true']) { border-color: var(--cx-status-danger-fg); }
+.cx-input--grouped { min-width: 0; flex: 1; border: 0; border-radius: 0; background: transparent; }
+.cx-input--grouped:focus { outline: none; }
+.cx-input-group__suffix { display: flex; flex: none; align-items: center; border-inline-start: 1px solid var(--cx-border); background: var(--cx-surface); padding-inline: 0.75rem; color: var(--cx-text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: 500; }
+.cx-alert__action { flex: none; align-self: center; }
