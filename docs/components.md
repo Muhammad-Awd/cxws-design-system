@@ -243,3 +243,14 @@ The SVG paths, display sizes, text variant, and optional workspace label are cop
 ```
 
 `AppShell` composes `Navbar`, `Sidebar`, and `BottomNavigation`; it does not determine routes, permissions, or account state.
+
+## Overlays, meters and file input (0.7.0)
+
+- **`Drawer`** is a side panel on wide screens and a bottom sheet on phones. Use it for quick views that keep the user on the page. It traps focus, closes on Escape and restores focus. Props: `open`, `title`, `subtitle`, `onClose`, `footer`, `closeLabel`.
+- **`DetailRow`** is one label and value pair. Put several inside `DetailList` (a `<dl>`).
+- **`ProgressBar`** shows usage and turns amber at `warnAt` (default 90) and red when over. Give it a `label` so it has an accessible name.
+- **`Dropzone`** is a click-or-drop file target. It checks type (`accept`) and size (`maxBytes`, default 5 MB) and reports a plain-language reason through `onReject`.
+- **`Pagination`** shows page buttons with previous and next. The current page uses the accent.
+- **`Modal`** takes `size`: `sm`, `md` (default), `lg` or `xl`.
+
+The accent (`--cx-accent`, `--cx-accent-hover`, `--cx-accent-fg`, `--cx-accent-text`) is used by primary buttons, the selected tab underline, the current page and the focus ring. Selected filters and chips keep the neutral `--cx-primary-*` tokens so red does not spread.

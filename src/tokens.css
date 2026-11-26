@@ -66,6 +66,8 @@
   --color-cx-primary-hover: var(--cx-primary-hover);
   --color-cx-secondary-bg: var(--cx-secondary-bg);
   --color-cx-secondary-hover: var(--cx-secondary-hover);
+  --color-cx-accent: var(--cx-accent);
+  --color-cx-accent-text: var(--cx-accent-text);
   --color-doc-bg: var(--doc-bg);
   --color-doc-subtle: var(--doc-subtle);
   --color-doc-border: var(--doc-border);
@@ -93,7 +95,11 @@
   --cx-primary-hover: #e5e5e5;
   --cx-secondary-bg: #1a1a1a;
   --cx-secondary-hover: #262626;
-  --cx-focus-ring: #ffffff;
+  --cx-focus-ring: #ff8a82;
+  --cx-accent: #c2403a;
+  --cx-accent-hover: #d24d46;
+  --cx-accent-fg: #ffffff;
+  --cx-accent-text: #ff8a82;
   --cx-shadow-float: 0px 104px 520px rgba(0, 0, 0, 0.55), 0px 12px 32px rgba(0, 0, 0, 0.45);
   --cx-status-ok-fg: #4ade80;
   --cx-status-ok-bg: rgba(34, 197, 94, 0.12);
@@ -132,7 +138,11 @@
   --cx-primary-hover: #262626;
   --cx-secondary-bg: #f3f3f3;
   --cx-secondary-hover: #e7e7e7;
-  --cx-focus-ring: #0d0d0d;
+  --cx-focus-ring: #ac322e;
+  --cx-accent: #ac322e;
+  --cx-accent-hover: #8f2824;
+  --cx-accent-fg: #ffffff;
+  --cx-accent-text: #ac322e;
   --cx-shadow-float: 0px 104px 520px rgba(0, 0, 0, 0.15);
   --cx-status-ok-fg: #15803d;
   --cx-status-ok-bg: rgba(21, 128, 61, 0.08);
@@ -264,6 +274,26 @@
   .cx-float-shadow {
     box-shadow: var(--cx-shadow-float);
   }
+}
+
+@keyframes cxFadeOnly {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cxDrawerIn {
+  from { opacity: 0; transform: translateX(1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes cxDrawerInRtl {
+  from { opacity: 0; transform: translateX(-1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes cxSheetUp {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes cxFadeIn {

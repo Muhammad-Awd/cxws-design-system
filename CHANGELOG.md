@@ -2,6 +2,15 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.7.0] - 2026-11-26
+
+### Added
+
+- Added a brand accent (`--cx-accent`, `-hover`, `-fg`, `-text`). Primary buttons, the selected tab underline, the current page and the focus ring use it. Neutral `--cx-primary-*` tokens stay for selected chips and filters.
+- Added `Drawer`, `DetailRow`, `DetailList`, `ProgressBar`, `Dropzone` and `Pagination`.
+- `Modal` accepts `size` (`sm`, `md`, `lg`, `xl`).
+- Buttons press down slightly while active.
+
 ## [0.6.1] - 2026-11-25
 
 ### Fixed

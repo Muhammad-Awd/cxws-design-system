@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Pagination, ProgressBar, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -82,5 +82,57 @@ describe('presentational components', () => {
     render(<Tabs ariaLabel="Sections" items={[{ id: 'one', label: 'One' }, { id: 'two', label: 'Two' }]} value="one" onChange={onChange} />)
     fireEvent.keyDown(screen.getByRole('tab', { name: 'One' }), { key: 'ArrowRight' })
     expect(onChange).toHaveBeenCalledWith('two')
+  })
+
+  it('shows a drawer as a labelled dialog, closes on Escape and restores nothing when closed', () => {
+    const onClose = vi.fn()
+    const { rerender } = render(<Drawer open title="Invoice" subtitle="May 2026" onClose={onClose}><p>Body</p></Drawer>)
+    expect(screen.getByRole('dialog', { name: 'Invoice' })).toBeInTheDocument()
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(onClose).toHaveBeenCalled()
+    rerender(<Drawer open={false} title="Invoice" onClose={onClose}><p>Body</p></Drawer>)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('applies a size class to larger modals', () => {
+    render(<Modal open title="Wide" onClose={() => {}} size="lg"><p>Body</p></Modal>)
+    expect(screen.getByRole('dialog')).toHaveClass('cx-modal--lg')
+  })
+
+  it('renders detail rows as a term and its value', () => {
+    render(<dl><DetailRow label="Due">May 01</DetailRow></dl>)
+    expect(screen.getByText('Due').tagName).toBe('DT')
+    expect(screen.getByText('May 01').tagName).toBe('DD')
+  })
+
+  it('reports usage and warns as a progress bar fills', () => {
+    const { rerender } = render(<ProgressBar value={3} max={5} label="Mailboxes used" />)
+    const bar = screen.getByRole('progressbar', { name: 'Mailboxes used' })
+    expect(bar).toHaveAttribute('aria-valuenow', '3')
+    expect(bar.firstElementChild).not.toHaveClass('cx-progress__bar--warn')
+    rerender(<ProgressBar value={5} max={5} label="Mailboxes used" />)
+    expect(screen.getByRole('progressbar').firstElementChild).toHaveClass('cx-progress__bar--warn')
+  })
+
+  it('rejects files that are the wrong type or too large and accepts valid ones', () => {
+    const onFile = vi.fn()
+    const onReject = vi.fn()
+    const { container } = render(<Dropzone onFile={onFile} onReject={onReject} maxBytes={10} />)
+    const input = container.querySelector('input[type=file]') as HTMLInputElement
+    fireEvent.change(input, { target: { files: [new File(['x'], 'a.txt', { type: 'text/plain' })] } })
+    expect(onReject).toHaveBeenCalledWith('That file type is not supported.')
+    fireEvent.change(input, { target: { files: [new File(['x'.repeat(20)], 'a.png', { type: 'image/png' })] } })
+    expect(onReject).toHaveBeenCalledTimes(2)
+    fireEvent.change(input, { target: { files: [new File(['x'], 'a.png', { type: 'image/png' })] } })
+    expect(onFile).toHaveBeenCalledTimes(1)
+  })
+
+  it('marks the current page and disables the edges', () => {
+    const onPageChange = vi.fn()
+    render(<Pagination page={1} pageCount={2} onPageChange={onPageChange} />)
+    expect(screen.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('button', { name: 'Previous page' })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Next page' }))
+    expect(onPageChange).toHaveBeenCalledWith(2)
   })
 })

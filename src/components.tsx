@@ -15,7 +15,7 @@ import {
   type TableHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react'
-import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, HelpCircle, LoaderCircle, MinusCircle, MoreHorizontal, X } from 'lucide-react'
+import { AlertCircle, AlertTriangle, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, HelpCircle, ImagePlus, LoaderCircle, MinusCircle, MoreHorizontal, X } from 'lucide-react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
 export type ControlSize = 'sm' | 'md' | 'lg'
@@ -540,9 +540,10 @@ export interface ModalProps {
   children: ReactNode
   footer?: ReactNode
   closeLabel?: string
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
-export function Modal({ open, title, description, onClose, children, footer, closeLabel = 'Close dialog' }: ModalProps) {
+export function Modal({ open, title, description, onClose, children, footer, closeLabel = 'Close dialog', size = 'md' }: ModalProps) {
   const titleId = useId()
   const descriptionId = useId()
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -580,7 +581,7 @@ export function Modal({ open, title, description, onClose, children, footer, clo
     <div className="cx-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
       <div
         ref={dialogRef}
-        className="cx-modal cx-motion-sheet cx-float-shadow"
+        className={`cx-modal${size === 'md' ? '' : ` cx-modal--${size}`} cx-motion-sheet cx-float-shadow`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -801,5 +802,200 @@ export function CloudXLogo({
       </svg>
       {showWorkspaceLabel && <><span className="cx-logo__divider" aria-hidden="true" /><span className="cx-logo__workspace">{workspaceLabel}</span></>}
     </span>
+  )
+}
+
+
+/** Shared focus handling for overlays: moves focus in, traps Tab, closes on Escape, restores focus. */
+function useOverlayFocus(open: boolean, onClose: () => void, ref: { current: HTMLElement | null }) {
+  useEffect(() => {
+    if (!open) return
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    ref.current?.focus()
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Tab' || !ref.current) return
+      const focusable = Array.from(ref.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+      ))
+      if (focusable.length === 0) {
+        event.preventDefault()
+        ref.current.focus()
+      } else if (event.shiftKey && document.activeElement === focusable[0]) {
+        event.preventDefault()
+        focusable.at(-1)?.focus()
+      } else if (!event.shiftKey && document.activeElement === focusable.at(-1)) {
+        event.preventDefault()
+        focusable[0]?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      previousFocus?.focus()
+    }
+  }, [open, onClose, ref])
+}
+
+export interface DrawerProps {
+  open: boolean
+  title: ReactNode
+  subtitle?: ReactNode
+  onClose: () => void
+  children: ReactNode
+  footer?: ReactNode
+  closeLabel?: string
+}
+
+/** Side panel on wide screens and a bottom sheet on phones. Use for quick views that keep the user in context. */
+export function Drawer({ open, title, subtitle, onClose, children, footer, closeLabel = 'Close' }: DrawerProps) {
+  const titleId = useId()
+  const panelRef = useRef<HTMLDivElement>(null)
+  useOverlayFocus(open, onClose, panelRef)
+  if (!open) return null
+  return (
+    <div className="cx-drawer-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
+      <div ref={panelRef} className="cx-drawer cx-float-shadow" role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1}>
+        <header className="cx-drawer__header">
+          <div><h2 id={titleId}>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>
+          <IconButton label={closeLabel} onClick={onClose}><X className="cx-icon" aria-hidden="true" /></IconButton>
+        </header>
+        <div className="cx-drawer__body">{children}</div>
+        {footer && <footer className="cx-drawer__footer">{footer}</footer>}
+      </div>
+    </div>
+  )
+}
+
+export interface DetailRowProps {
+  label: ReactNode
+  children: ReactNode
+  className?: string
+}
+
+/** One label/value pair. Wrap several in a <dl> (see DetailList) so assistive tech reads them as a list. */
+export function DetailRow({ label, children, className = '' }: DetailRowProps) {
+  return (
+    <div className={`cx-detail-row${className ? ` ${className}` : ''}`}>
+      <dt>{label}</dt>
+      <dd>{children}</dd>
+    </div>
+  )
+}
+
+export function DetailList({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <dl className={`cx-detail-list${className ? ` ${className}` : ''}`} style={{ display: 'grid', gap: '0.5rem', margin: 0 }}>{children}</dl>
+}
+
+export interface ProgressBarProps {
+  /** Current amount. */
+  value: number
+  /** Amount that counts as full. */
+  max: number
+  label: string
+  /** Percentage at which the bar turns amber. Default 90. */
+  warnAt?: number
+  className?: string
+}
+
+/** Usage meter: green normally, amber when nearly full, red when over. */
+export function ProgressBar({ value, max, label, warnAt = 90, className = '' }: ProgressBarProps) {
+  const percent = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0
+  const tone = max > 0 && value > max ? ' cx-progress__bar--danger' : percent >= warnAt ? ' cx-progress__bar--warn' : ''
+  return (
+    <div className={`cx-progress${className ? ` ${className}` : ''}`} role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={Math.min(value, max)}>
+      <div className={`cx-progress__bar${tone}`} style={{ width: `${percent}%` }} />
+    </div>
+  )
+}
+
+export interface DropzoneProps {
+  /** Called with the first accepted file. */
+  onFile: (file: File) => void
+  /** Called with a plain-language reason when a file is rejected. */
+  onReject?: (reason: string) => void
+  accept?: string[]
+  maxBytes?: number
+  title?: ReactNode
+  hint?: ReactNode
+  invalid?: boolean
+  disabled?: boolean
+  className?: string
+}
+
+/** Click-or-drop file target. Validates type and size before handing the file over. */
+export function Dropzone({
+  onFile,
+  onReject,
+  accept = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+  maxBytes = 5 * 1024 * 1024,
+  title,
+  hint,
+  invalid,
+  disabled,
+  className = '',
+}: DropzoneProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [dragging, setDragging] = useState(false)
+
+  function take(file: File | undefined) {
+    if (!file) return
+    if (!accept.includes(file.type)) { onReject?.('That file type is not supported.'); return }
+    if (file.size > maxBytes) { onReject?.(`That file is larger than ${Math.round(maxBytes / 1024 / 1024)} MB.`); return }
+    onFile(file)
+  }
+
+  return (
+    <>
+      <input
+        ref={inputRef}
+        type="file"
+        accept={accept.join(',')}
+        className="cx-visually-hidden"
+        style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}
+        tabIndex={-1}
+        aria-hidden="true"
+        onChange={(event) => { take(event.target.files?.[0]); event.target.value = '' }}
+      />
+      <button
+        type="button"
+        disabled={disabled}
+        className={`cx-dropzone${dragging ? ' is-dragging' : ''}${invalid ? ' is-invalid' : ''}${className ? ` ${className}` : ''}`}
+        onClick={() => inputRef.current?.click()}
+        onDragOver={(event) => { event.preventDefault(); setDragging(true) }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(event) => { event.preventDefault(); setDragging(false); take(event.dataTransfer.files[0]) }}
+      >
+        <span className="cx-dropzone__icon" aria-hidden="true"><ImagePlus className="cx-icon" width={28} height={28} /></span>
+        <span className="cx-dropzone__title">{title ?? <><strong>Click to upload</strong> or drag and drop</>}</span>
+        {hint && <span className="cx-dropzone__hint">{hint}</span>}
+      </button>
+    </>
+  )
+}
+
+export interface PaginationProps {
+  page: number
+  pageCount: number
+  onPageChange: (page: number) => void
+  previousLabel?: string
+  nextLabel?: string
+  ariaLabel?: string
+}
+
+export function Pagination({ page, pageCount, onPageChange, previousLabel = 'Previous page', nextLabel = 'Next page', ariaLabel = 'Pagination' }: PaginationProps) {
+  const pages = Array.from({ length: Math.max(1, pageCount) }, (_, index) => index + 1)
+  return (
+    <nav className="cx-pagination" aria-label={ariaLabel}>
+      <button type="button" className="cx-pagination__step" aria-label={previousLabel} disabled={page <= 1} onClick={() => onPageChange(page - 1)}>
+        <ChevronLeft className="cx-icon cx-icon--directional" aria-hidden="true" />
+      </button>
+      {pages.map((n) => (
+        <button key={n} type="button" className="cx-pagination__page" aria-current={n === page ? 'page' : undefined} onClick={() => onPageChange(n)}>{n}</button>
+      ))}
+      <button type="button" className="cx-pagination__step" aria-label={nextLabel} disabled={page >= pageCount} onClick={() => onPageChange(page + 1)}>
+        <ChevronRight className="cx-icon cx-icon--directional" aria-hidden="true" />
+      </button>
+    </nav>
   )
 }
