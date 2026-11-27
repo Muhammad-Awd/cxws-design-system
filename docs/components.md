@@ -293,3 +293,21 @@ Use them only while something is happening now, and not more than a few on one s
 ```
 
 For one flagship screen that needs to show what a feature does, such as a tester walking through a sample shop. Build the example screen from real surfaces (`--cx-surface`, `--cx-border`), not an illustration. The cursor glides, a ripple marks a click, and a pin names a problem in a status tone. Label the example as an example when the data is not the customer's own, give reduced-motion users the finished state, and keep it to one per screen.
+
+## Choices, steps and headings
+
+```tsx
+<ChipGroup label="Filter by group">
+  <Chip selected={group === 'all'} count={29} onClick={() => setGroup('all')}>All</Chip>
+</ChipGroup>
+<Stepper steps={['What you need', 'What it is about', 'Describe it']} current={2} onSelect={setStep} />
+<SegmentedControl label="Billing term" value={term} onChange={setTerm} options={[{ value: 'monthly', label: 'Monthly' }, { value: 'annual', label: 'Yearly' }]} />
+<SectionTitle count={5}>Business email</SectionTitle>
+<CardTitle>Needs you</CardTitle>
+<TextButton onClick={edit}>Edit</TextButton>
+<Card tone="raised">A panel inside a card</Card>
+```
+
+`Chip` filters or picks. `Stepper` shows numbered steps and lets people go back. `SegmentedControl` switches between a few exclusive options. `SectionTitle` is the one heading style for page sections (h2) and `CardTitle` for card titles (h3). `TextButton` is a small underlined action inside running text. Use `Card tone="raised"` for a panel inside a card instead of a custom background.
+
+Body text never goes below 12 px (0.75rem).

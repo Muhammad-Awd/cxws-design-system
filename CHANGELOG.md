@@ -2,6 +2,17 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.11.0] - 2026-11-27
+
+### Added
+
+- `Chip` and `ChipGroup`, `Stepper`, `SegmentedControl`, `TextButton`, `SectionTitle` and `CardTitle`, and `Card tone="raised"`. They replace controls that screens were building by hand.
+- Design principles for headings, minimum text size and which control to pick.
+
+### Changed
+
+- `docs/ux-writing.md` uses a colon instead of an em dash in its evidence column.
+
 ## [0.10.0] - 2026-11-27
 
 ### Added

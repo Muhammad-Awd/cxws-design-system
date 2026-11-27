@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, GhostCursor, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -182,5 +182,33 @@ describe('presentational components', () => {
     expect(container.querySelector('.cx-ghost-cursor')).toHaveStyle({ left: '40%', top: '20%' })
     expect(screen.getByText('Form accepts an empty email')).toBeInTheDocument()
     expect(container.querySelector('.cx-pin--warn .cx-pin__dot')).toHaveTextContent('2')
+  })
+
+  it('marks the selected chip and shows a count', () => {
+    render(<ChipGroup label="Group"><Chip selected count={3}>All</Chip><Chip>Mail</Chip></ChipGroup>)
+    expect(screen.getByRole('group', { name: 'Group' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /All/ })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Mail' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByText('3')).toBeInTheDocument()
+  })
+
+  it('lets a stepper go back to earlier steps only', () => {
+    const onSelect = vi.fn()
+    render(<Stepper steps={['One', 'Two', 'Three']} current={2} onSelect={onSelect} />)
+    expect(screen.getByRole('button', { name: /One/ })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /Three/ })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: /One/ }))
+    expect(onSelect).toHaveBeenCalledWith(1)
+    expect(screen.getByText('Two').closest('li')).toHaveAttribute('aria-current', 'step')
+  })
+
+  it('switches a segmented control and renders headings and text buttons', () => {
+    const onChange = vi.fn()
+    render(<div><SegmentedControl label="Term" value="a" onChange={onChange} options={[{ value: 'a', label: 'Monthly' }, { value: 'b', label: 'Yearly' }]} /><SectionTitle count={2}>Mail</SectionTitle><CardTitle>Needs you</CardTitle><TextButton onClick={() => {}}>Edit</TextButton></div>)
+    fireEvent.click(screen.getByRole('button', { name: 'Yearly' }))
+    expect(onChange).toHaveBeenCalledWith('b')
+    expect(screen.getByRole('heading', { level: 2, name: /Mail/ })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: 'Needs you' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Edit' })).toHaveClass('cx-text-button')
   })
 })

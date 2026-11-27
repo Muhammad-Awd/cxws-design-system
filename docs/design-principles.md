@@ -37,6 +37,12 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 - **PROPOSED** Motion is allowed when it shows state: a sweep on a live status circle, a caret on the newest log line, a dot travelling along a link. It uses status tokens, follows the theme and stops for reduced motion. It never becomes a glow, gradient background, grid or vignette.
 - **PROPOSED** Use at most one live panel per screen, and only where the state really changes over time.
 
+## Headings and text size
+
+- **PROPOSED** A page section uses `SectionTitle`. A card or panel uses `CardTitle`. Do not mix bold and muted styles for headings at the same level.
+- **PROPOSED** The smallest text is 12 px. Use `text-micro` or larger.
+- **PROPOSED** Pick from `Chip`, `Stepper`, `SegmentedControl` and `TextButton` before building a new control. Use `Checkbox`, `Toggle` and `Select` for form choices.
+
 ## Hero visuals
 
 - **PROPOSED** One flagship screen per feature may show the feature working on a simulated example: a browser frame, a gliding cursor, click ripples and annotation pins. It is a simulation of the real product, not abstract decoration.

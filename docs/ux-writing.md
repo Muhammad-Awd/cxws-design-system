@@ -6,14 +6,14 @@ Copy conventions below are drawn only from the customer portal source. Labels ar
 
 | Purpose | English source example | Arabic source example | Status / source |
 | --- | --- | --- | --- |
-| Navigation label | “Search” | “بحث” | OBSERVED — `src/components/layout/AppLayouts.tsx` |
-| Account action | “Sign out” | “خروج” | OBSERVED — `src/components/layout/AppLayouts.tsx` |
-| Validation | “Enter a valid email address (for example, client@example.com).” | “أدخل عنوان بريد إلكتروني صالحاً (مثال: client@example.com).” | OBSERVED — `src/pages/auth/AuthPages.tsx` |
-| Error | “Unable to send verification request right now. Your email was preserved; retry when ready.” | “تعذر إرسال طلب التحقق حالياً. تم الاحتفاظ ببريدك الإلكتروني للمحاولة مجدداً.” | OBSERVED — `src/pages/auth/AuthPages.tsx` |
-| Empty | “No invoices issued yet.” | “لا توجد فواتير صادرة بعد.” | OBSERVED — `src/pages/dashboard/DashboardPage.tsx` |
-| Success | “Recovery request sent” | “تم إرسال طلب الاستعادة” | OBSERVED — `src/pages/auth/AuthPages.tsx` |
-| Loading announcement | “Loading workspace content” | UNKNOWN | OBSERVED English label only — `src/components/ui/Primitives.tsx` (`PageLoadingSkeleton`) |
-| Copy confirmation | “Copied” | “تم النسخ” | OBSERVED — `src/components/ui/Primitives.tsx` (`CopyPillButton`) |
+| Navigation label | “Search” | “بحث” | OBSERVED: `src/components/layout/AppLayouts.tsx` |
+| Account action | “Sign out” | “خروج” | OBSERVED: `src/components/layout/AppLayouts.tsx` |
+| Validation | “Enter a valid email address (for example, client@example.com).” | “أدخل عنوان بريد إلكتروني صالحاً (مثال: client@example.com).” | OBSERVED: `src/pages/auth/AuthPages.tsx` |
+| Error | “Unable to send verification request right now. Your email was preserved; retry when ready.” | “تعذر إرسال طلب التحقق حالياً. تم الاحتفاظ ببريدك الإلكتروني للمحاولة مجدداً.” | OBSERVED: `src/pages/auth/AuthPages.tsx` |
+| Empty | “No invoices issued yet.” | “لا توجد فواتير صادرة بعد.” | OBSERVED: `src/pages/dashboard/DashboardPage.tsx` |
+| Success | “Recovery request sent” | “تم إرسال طلب الاستعادة” | OBSERVED: `src/pages/auth/AuthPages.tsx` |
+| Loading announcement | “Loading workspace content” | UNKNOWN | OBSERVED English label only: `src/components/ui/Primitives.tsx` (`PageLoadingSkeleton`) |
+| Copy confirmation | “Copied” | “تم النسخ” | OBSERVED: `src/components/ui/Primitives.tsx` (`CopyPillButton`) |
 | Internal prototype narration | “Email service active. Customer continues alone.” | UNKNOWN | OBSERVED literal, but identified as internal narration rather than usable customer copy — `src/pages/email/EmailPurchaseConnectPages.tsx` |
 
 ## Rules

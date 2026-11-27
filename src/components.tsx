@@ -337,11 +337,13 @@ export function OverflowMenu({
 export interface CardProps {
   children: ReactNode
   padding?: 'none' | 'sm' | 'md' | 'lg'
+  /** `raised` sits one level above a card, for panels inside a card. */
+  tone?: 'default' | 'raised'
   className?: string
 }
 
-export function Card({ children, padding = 'md', className = '' }: CardProps) {
-  return <div className={`cx-card cx-card--${padding}${className ? ` ${className}` : ''}`}>{children}</div>
+export function Card({ children, padding = 'md', tone = 'default', className = '' }: CardProps) {
+  return <div className={`cx-card cx-card--${padding}${tone === 'raised' ? ' cx-card--raised' : ''}${className ? ` ${className}` : ''}`}>{children}</div>
 }
 
 export interface MetricCardProps {
@@ -1123,4 +1125,116 @@ export function AnnotationPin({ n, tone = 'danger', children, x, y, flip = false
       <span className="cx-pin__note">{children}</span>
     </div>
   )
+}
+
+export interface ChipProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+  selected?: boolean
+  /** A number shown after the label, such as how many items match. */
+  count?: number
+}
+
+/** A filter or choice chip. Use inside a `ChipGroup`. */
+export function Chip({ selected = false, count, className = '', children, ...props }: ChipProps) {
+  return (
+    <button type="button" aria-pressed={selected} className={`cx-chip${selected ? ' is-selected' : ''}${className ? ` ${className}` : ''}`} {...props}>
+      {children}
+      {count !== undefined && <span className="cx-chip__count">{count}</span>}
+    </button>
+  )
+}
+
+export interface ChipGroupProps {
+  /** Accessible name for the group. */
+  label: string
+  children: ReactNode
+  /** One scrolling row instead of wrapping. Use for long lists on phones. */
+  scroll?: boolean
+  className?: string
+}
+
+export function ChipGroup({ label, children, scroll = false, className = '' }: ChipGroupProps) {
+  return <div role="group" aria-label={label} className={`cx-chip-group${scroll ? ' cx-chip-group--scroll' : ''}${className ? ` ${className}` : ''}`}>{children}</div>
+}
+
+export interface StepperProps {
+  steps: string[]
+  /** The current step, starting at 1. */
+  current: number
+  /** Called when a step before the current one is chosen. */
+  onSelect?: (step: number) => void
+  label?: string
+  className?: string
+}
+
+/** Numbered steps. Earlier steps can be revisited, later ones cannot. */
+export function Stepper({ steps, current, onSelect, label = 'Steps', className = '' }: StepperProps) {
+  return (
+    <ol className={`cx-stepper${className ? ` ${className}` : ''}`} aria-label={label}>
+      {steps.map((name, i) => {
+        const n = i + 1
+        const reachable = n < current && !!onSelect
+        return (
+          <li key={name} aria-current={n === current ? 'step' : undefined}>
+            <button type="button" disabled={!reachable} onClick={() => onSelect?.(n)} className={`cx-stepper__step${n === current ? ' is-current' : ''}${n < current ? ' is-done' : ''}`}>
+              <span className="cx-stepper__number">{n}</span>
+              {name}
+            </button>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
+export interface SegmentedOption<T extends string> {
+  value: T
+  label: ReactNode
+}
+
+export interface SegmentedControlProps<T extends string> {
+  options: SegmentedOption<T>[]
+  value: T
+  onChange: (value: T) => void
+  label: string
+  className?: string
+}
+
+/** A small switch between a few exclusive views or terms. */
+export function SegmentedControl<T extends string>({ options, value, onChange, label, className = '' }: SegmentedControlProps<T>) {
+  return (
+    <div role="group" aria-label={label} className={`cx-segmented${className ? ` ${className}` : ''}`}>
+      {options.map((o) => (
+        <button key={o.value} type="button" aria-pressed={value === o.value} className={`cx-segmented__option${value === o.value ? ' is-selected' : ''}`} onClick={() => onChange(o.value)}>{o.label}</button>
+      ))}
+    </div>
+  )
+}
+
+export interface TextButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+  tone?: 'default' | 'danger'
+}
+
+/** A button that reads as an underlined link, for small secondary actions inside text. */
+export function TextButton({ tone = 'default', className = '', ...props }: TextButtonProps) {
+  return <button type="button" className={`cx-text-button${tone === 'danger' ? ' cx-text-button--danger' : ''}${className ? ` ${className}` : ''}`} {...props} />
+}
+
+export interface SectionTitleProps {
+  children: ReactNode
+  /** The heading level in the page outline. Section titles are h2 by default. */
+  as?: 'h2' | 'h3'
+  /** A quiet count after the title. */
+  count?: number
+  id?: string
+  className?: string
+}
+
+/** The one heading style for a section on a page. */
+export function SectionTitle({ children, as: Tag = 'h2', count, id, className = '' }: SectionTitleProps) {
+  return <Tag id={id} className={`cx-section-title${className ? ` ${className}` : ''}`}>{children}{count !== undefined && <span className="cx-section-title__count">{count}</span>}</Tag>
+}
+
+/** The heading style for the title of a card or panel. */
+export function CardTitle({ children, as: Tag = 'h3', id, className = '' }: Omit<SectionTitleProps, 'count'>) {
+  return <Tag id={id} className={`cx-card-title${className ? ` ${className}` : ''}`}>{children}</Tag>
 }
