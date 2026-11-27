@@ -267,3 +267,16 @@ The accent (`--cx-accent`, `--cx-accent-hover`, `--cx-accent-fg`, `--cx-accent-t
 Use them for something that is running right now: a tester at work, an uptime check, a backup in progress. `tone` is one of the four status tones (`ok`, `warn`, `danger`, `neutral`). They use only status tokens, so they follow the light and dark themes. Motion happens only while `live`, and stops for people who ask for reduced motion.
 
 Do not use them as decoration. Do not add glows, gradients, dark panels that ignore the theme, or a fifth colour around them. Build the surface they sit on from `Card`, `--cx-surface` and `--cx-border`.
+
+### Motion utilities
+
+```tsx
+<span className="cx-motion--ok relative block h-11 w-11 rounded-full"><span className="cx-motion-sweep" /></span>
+<p className="cx-motion-reveal">New log line</p>
+<p className="cx-motion-caret">Searching for products</p>
+<div className="relative h-px bg-[var(--cx-border-strong)]"><span className="cx-motion-travel cx-motion--ok" /></div>
+```
+
+`cx-motion-sweep` (a slow tinted sweep for a live status circle), `cx-motion-scan` (a thin line passing over a preview), `cx-motion-shimmer` (the part that is running now), `cx-motion-reveal` (a new line fades up), `cx-motion-caret` (a blinking caret on the newest line) and `cx-motion-travel` (a dot moving along a line). Set the colour with `cx-motion--ok`, `--warn`, `--danger` or `--neutral`. They stop for people who ask for reduced motion.
+
+Use them only while something is happening now, and not more than a few on one screen.

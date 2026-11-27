@@ -34,6 +34,7 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 
 - **PROPOSED** A screen may show work that is happening now with a `PulseDot` or `Heartbeat`. The surface around it is an ordinary card in the current theme. Do not add glows, gradients, background grids, vignettes or a dark panel that ignores the theme.
 - **PROPOSED** Status words stay plain and sentence case ("Working now", "Waiting for its next window"). Colour never carries the meaning alone.
+- **PROPOSED** Motion is allowed when it shows state: a sweep on a live status circle, a caret on the newest log line, a dot travelling along a link. It uses status tokens, follows the theme and stops for reduced motion. It never becomes a glow, gradient background, grid or vignette.
 - **PROPOSED** Use at most one live panel per screen, and only where the state really changes over time.
 
 ## Source reconciliation

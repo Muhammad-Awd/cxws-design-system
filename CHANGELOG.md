@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.9.0] - 2026-11-27
+
+### Added
+
+- Motion utilities that show state: `cx-motion-sweep`, `cx-motion-scan`, `cx-motion-shimmer`, `cx-motion-reveal`, `cx-motion-caret`, `cx-motion-travel`, with tone modifiers. They use status tokens, follow the theme and stop for reduced motion.
+
 ## [0.8.0] - 2026-11-27
 
 ### Added

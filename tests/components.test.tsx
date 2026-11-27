@@ -169,4 +169,11 @@ describe('presentational components', () => {
     rerender(<Heartbeat tone="warn" label="Checking" />)
     expect(screen.getByRole('img', { name: 'Checking' })).toHaveClass('cx-heartbeat--live', 'cx-heartbeat--warn')
   })
+
+  it('documents every motion utility in the stylesheet and switches them off for reduced motion', async () => {
+    const { readFileSync } = await import('node:fs')
+    const css = readFileSync('src/styles.css', 'utf8')
+    for (const name of ['sweep', 'scan', 'shimmer', 'reveal', 'caret', 'travel']) expect(css).toContain(`.cx-motion-${name}`)
+    expect(css).toMatch(/prefers-reduced-motion: reduce\) \{\s*\.cx-motion-sweep/)
+  })
 })
