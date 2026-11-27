@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.14.0] - 2026-11-28
+
+### Changed
+
+- `Card` is now an open section with a hairline above it, with no box, fill or rounded corners. `Card tone="raised"` keeps the boxed panel for things that should stand off the page. Screens that stacked many boxed cards now read as one page.
+
 ## [0.13.0] - 2026-11-28
 
 ### Changed

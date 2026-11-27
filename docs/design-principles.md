@@ -68,3 +68,7 @@ Where a screen would repeat the same card many times, set it as rows divided by 
 ## Brand pass
 
 CloudX uses the Dipdux brand rules: dark first, white text, MainGray for quiet text, one accent, one shadow, ease-out at about 250 ms, and no motion for its own sake. State is a small dot and a word. Use `Badge` for it, and do not stack coloured pills on every row. A pulse or breathing node is reserved for something that is really in progress, such as a build.
+
+## Open cards
+
+`Card` has no box. Use it to separate sections with a hairline. Use `Card tone="raised"` only for a panel that must stand off the page, such as a summary the person acts on. Do not nest an open card inside another.
