@@ -254,3 +254,16 @@ The SVG paths, display sizes, text variant, and optional workspace label are cop
 - **`Modal`** takes `size`: `sm`, `md` (default), `lg` or `xl`.
 
 The accent (`--cx-accent`, `--cx-accent-hover`, `--cx-accent-fg`, `--cx-accent-text`) is used by primary buttons, the selected tab underline, the current page and the focus ring. Selected filters and chips keep the neutral `--cx-primary-*` tokens so red does not spread.
+
+## Live status marks
+
+### `PulseDot` and `Heartbeat`
+
+```tsx
+<PulseDot tone="ok" live label="Working now" />
+<Heartbeat tone="ok" live label="Checking every 5 minutes" />
+```
+
+Use them for something that is running right now: a tester at work, an uptime check, a backup in progress. `tone` is one of the four status tones (`ok`, `warn`, `danger`, `neutral`). They use only status tokens, so they follow the light and dark themes. Motion happens only while `live`, and stops for people who ask for reduced motion.
+
+Do not use them as decoration. Do not add glows, gradients, dark panels that ignore the theme, or a fifth colour around them. Build the surface they sit on from `Card`, `--cx-surface` and `--cx-border`.

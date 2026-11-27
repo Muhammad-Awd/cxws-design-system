@@ -1032,3 +1032,46 @@ export function Pagination({ page, pageCount, onPageChange, previousLabel = 'Pre
     </nav>
   )
 }
+
+export interface PulseDotProps {
+  tone?: StatusTone
+  /** Only a state that is happening right now may ping. Anything else stays still. */
+  live?: boolean
+  size?: 'sm' | 'md'
+  /** Read out to assistive technology. Leave empty when the dot sits next to text that says the same thing. */
+  label?: string
+  className?: string
+}
+
+/** A small status dot, in a status tone. It pings only while `live`. Never use it as decoration. */
+export function PulseDot({ tone = 'neutral', live = false, size = 'md', label, className = '' }: PulseDotProps) {
+  return (
+    <span
+      className={`cx-pulse-dot cx-pulse-dot--${tone} cx-pulse-dot--${size}${live ? ' cx-pulse-dot--live' : ''}${className ? ` ${className}` : ''}`}
+      {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
+    />
+  )
+}
+
+export interface HeartbeatProps {
+  tone?: StatusTone
+  /** The line draws itself in a loop while live, and is a flat line otherwise. */
+  live?: boolean
+  label?: string
+  className?: string
+}
+
+/** A heartbeat line for something that runs all the time, such as an uptime check. */
+export function Heartbeat({ tone = 'ok', live = true, label, className = '' }: HeartbeatProps) {
+  const beat = (i: number) => `M${i * 120} 10 H${i * 120 + 30} L${i * 120 + 36} 3 L${i * 120 + 44} 17 L${i * 120 + 50} 10 H${i * 120 + 72} L${i * 120 + 78} 5 L${i * 120 + 84} 15 L${i * 120 + 88} 10 H${i * 120 + 120}`
+  return (
+    <svg
+      viewBox="0 0 480 20"
+      preserveAspectRatio="none"
+      className={`cx-heartbeat cx-heartbeat--${tone}${live ? ' cx-heartbeat--live' : ''}${className ? ` ${className}` : ''}`}
+      {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
+    >
+      <path d={live ? [0, 1, 2, 3].map(beat).join(' ') : 'M0 10 H480'} pathLength={480} fill="none" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}

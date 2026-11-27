@@ -2,6 +2,13 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.8.0] - 2026-11-27
+
+### Added
+
+- `PulseDot` and `Heartbeat`: live status marks in the four status tones. They animate only while `live`, follow the theme, and stop for reduced motion.
+- Design principles for live status: no glows, gradients, grids or theme-ignoring dark panels.
+
 ## [0.7.0] - 2026-11-26
 
 ### Added

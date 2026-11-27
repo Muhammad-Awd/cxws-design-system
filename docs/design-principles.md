@@ -30,6 +30,12 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 | Keep team administration and other occasional destinations under a “More” navigation group when they are not core daily tasks. | PROPOSED (task-directed) | Requested while simplifying the customer portal; not an existing brand rule. |
 | Preserve all existing capabilities when reducing visible controls; make secondary actions discoverable through menus or disclosures. | PROPOSED (task-directed) | User requested simplification without feature loss. |
 
+## Live status
+
+- **PROPOSED** A screen may show work that is happening now with a `PulseDot` or `Heartbeat`. The surface around it is an ordinary card in the current theme. Do not add glows, gradients, background grids, vignettes or a dark panel that ignores the theme.
+- **PROPOSED** Status words stay plain and sentence case ("Working now", "Waiting for its next window"). Colour never carries the meaning alone.
+- **PROPOSED** Use at most one live panel per screen, and only where the state really changes over time.
+
 ## Source reconciliation
 
 The attached Dipdux brand-guidelines DOCX was consulted as a separate reference document. It is not treated as an instruction that supersedes the requested portal-source extraction. Some statements differ from the portal implementation: the document names SF Arabic while the portal loads IBM Plex Sans Arabic; it describes Bennu Red for primary calls to action while the portal's core primary button uses white/near-black values. This package follows the portal's current code values. The product owner's later instruction to use CloudX branding alone supersedes the document's co-branding examples.

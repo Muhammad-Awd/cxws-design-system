@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, MetricCard, Modal, Pagination, ProgressBar, SearchField, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -153,5 +153,20 @@ describe('presentational components', () => {
     render(<SearchField label="Search mailboxes" placeholder="Address" onChange={onChange} />)
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search mailboxes' }), { target: { value: 'info' } })
     expect(onChange).toHaveBeenCalled()
+  })
+
+  it('pings a status dot only while live and hides it from assistive technology unless labelled', () => {
+    const { container, rerender } = render(<PulseDot tone="ok" />)
+    expect(container.firstChild).not.toHaveClass('cx-pulse-dot--live')
+    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
+    rerender(<PulseDot tone="danger" live label="Down" />)
+    expect(screen.getByRole('img', { name: 'Down' })).toHaveClass('cx-pulse-dot--live', 'cx-pulse-dot--danger')
+  })
+
+  it('draws a heartbeat line only while live', () => {
+    const { container, rerender } = render(<Heartbeat live={false} />)
+    expect(container.querySelector('svg')).not.toHaveClass('cx-heartbeat--live')
+    rerender(<Heartbeat tone="warn" label="Checking" />)
+    expect(screen.getByRole('img', { name: 'Checking' })).toHaveClass('cx-heartbeat--live', 'cx-heartbeat--warn')
   })
 })

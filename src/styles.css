@@ -226,6 +226,8 @@
 .cx-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
 @keyframes cx-spin { to { transform: rotate(360deg); } }
+@keyframes cx-ping { 0% { transform: scale(1); opacity: 0.45; } 80%, 100% { transform: scale(2.2); opacity: 0; } }
+@keyframes cx-beat { from { stroke-dashoffset: 480; } to { stroke-dashoffset: 0; } }
 @keyframes cx-pulse { 50% { opacity: 0.5; } }
 
 @media (min-width: 40rem) {
@@ -307,3 +309,24 @@
 .cx-search { position: relative; display: block; }
 .cx-search__icon { position: absolute; inset-inline-start: 0.75rem; top: 50%; width: 1rem; height: 1rem; transform: translateY(-50%); pointer-events: none; color: var(--cx-text-subtle); stroke-width: 1.5; }
 .cx-search__input { padding-inline-start: 2.25rem; font-size: 0.8125rem; }
+
+/* Live status marks: a dot and a heartbeat line in the status tones. Motion means "this is happening now"; it stops for reduced-motion users. */
+.cx-pulse-dot { position: relative; display: inline-block; flex: none; border-radius: 9999px; background: var(--cx-pulse-color, var(--cx-status-neutral-fg)); }
+.cx-pulse-dot--md { width: 0.625rem; height: 0.625rem; }
+.cx-pulse-dot--sm { width: 0.5rem; height: 0.5rem; }
+.cx-pulse-dot--ok { --cx-pulse-color: var(--cx-status-ok-fg); }
+.cx-pulse-dot--warn { --cx-pulse-color: var(--cx-status-warn-fg); }
+.cx-pulse-dot--danger { --cx-pulse-color: var(--cx-status-danger-fg); }
+.cx-pulse-dot--neutral { --cx-pulse-color: var(--cx-status-neutral-fg); }
+.cx-pulse-dot--live::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: inherit; animation: cx-ping 2s ease-out infinite; }
+.cx-heartbeat { display: block; width: 100%; height: 1.25rem; }
+.cx-heartbeat path { stroke: var(--cx-border-strong); }
+.cx-heartbeat--live path { stroke-dasharray: 480; animation: cx-beat 1.8s linear infinite; }
+.cx-heartbeat--ok.cx-heartbeat--live path { stroke: var(--cx-status-ok-fg); }
+.cx-heartbeat--warn.cx-heartbeat--live path { stroke: var(--cx-status-warn-fg); }
+.cx-heartbeat--danger.cx-heartbeat--live path { stroke: var(--cx-status-danger-fg); }
+.cx-heartbeat--neutral.cx-heartbeat--live path { stroke: var(--cx-status-neutral-fg); }
+@media (prefers-reduced-motion: reduce) {
+  .cx-pulse-dot--live::after { display: none; }
+  .cx-heartbeat--live path { stroke-dasharray: none; animation: none; }
+}
