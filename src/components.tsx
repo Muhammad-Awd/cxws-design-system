@@ -9,6 +9,7 @@ import {
   type ButtonHTMLAttributes,
   type CSSProperties,
   type FormHTMLAttributes,
+  type HTMLAttributes,
   type InputHTMLAttributes,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
@@ -354,7 +355,7 @@ export function OverflowMenu({
   )
 }
 
-export interface CardProps {
+export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'> {
   children: ReactNode
   padding?: 'none' | 'sm' | 'md' | 'lg'
   /** `raised` sits one level above a card, for panels inside a card. */
@@ -362,8 +363,8 @@ export interface CardProps {
   className?: string
 }
 
-export function Card({ children, padding = 'md', tone = 'default', className = '' }: CardProps) {
-  return <div className={`cx-card cx-card--${padding}${tone === 'raised' ? ' cx-card--raised' : ''}${className ? ` ${className}` : ''}`}>{children}</div>
+export function Card({ children, padding = 'md', tone = 'default', className = '', ...rest }: CardProps) {
+  return <div className={`cx-card cx-card--${padding}${tone === 'raised' ? ' cx-card--raised' : ''}${className ? ` ${className}` : ''}`} {...rest}>{children}</div>
 }
 
 export interface MetricCardProps {

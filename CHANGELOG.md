@@ -6,7 +6,7 @@ Changes to this project are recorded here. Versioning follows SemVer; package na
 
 ### Added
 
-- `Radio`, `Chip` and `ChipGroup`, `Stepper`, `SegmentedControl`, `TextButton`, `SectionTitle` and `CardTitle`, and `Card tone="raised"`. They replace controls that screens were building by hand.
+- `Radio`, `Chip` and `ChipGroup`, `Stepper`, `SegmentedControl`, `TextButton`, `SectionTitle` and `CardTitle`, and `Card tone="raised"`. `Card` accepts `id`, `role` and `aria-*`. They replace controls that screens were building by hand.
 - Design principles for headings, minimum text size and which control to pick.
 
 ### Changed
