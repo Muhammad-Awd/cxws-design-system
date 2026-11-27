@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.13.0] - 2026-11-28
+
+### Changed
+
+- Brand pass. `Badge` is now a small status dot and a word, with no border or fill, so state stays readable without turning screens into rows of coloured pills. Ping dots, the heartbeat line, the radar sweep and the shimmer no longer animate. Only a build in progress still breathes, more slowly.
+
 ## [0.12.0] - 2026-11-28
 
 ### Added

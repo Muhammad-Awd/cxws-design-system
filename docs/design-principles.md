@@ -63,3 +63,8 @@ The attached Dipdux brand-guidelines DOCX was consulted as a separate reference 
 ## Ledger direction
 
 Where a screen would repeat the same card many times, set it as rows divided by hairlines (`Ledger`). Use a `Spine` for anything that happens in order, such as a build or a set-up. Figures are large and tabular. The accent colour marks the one thing that needs attention now; status tones mark state only. No gradients, glows or shadows. Motion is slow and shows that something is happening: a building node breathes on a 2 s cycle, a finished step settles in, a failed step holds still.
+
+
+## Brand pass
+
+CloudX uses the Dipdux brand rules: dark first, white text, MainGray for quiet text, one accent, one shadow, ease-out at about 250 ms, and no motion for its own sake. State is a small dot and a word. Use `Badge` for it, and do not stack coloured pills on every row. A pulse or breathing node is reserved for something that is really in progress, such as a build.
