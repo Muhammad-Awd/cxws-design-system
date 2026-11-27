@@ -143,6 +143,26 @@ export function Checkbox({ label, description, className = '', id, ...props }: C
   )
 }
 
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  label: ReactNode
+  description?: ReactNode
+}
+
+/** One option of a choice. Give every option in a group the same `name`. */
+export function Radio({ label, description, className = '', id, ...props }: RadioProps) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  return (
+    <label className={`cx-checkbox cx-radio${className ? ` ${className}` : ''}`} htmlFor={inputId}>
+      <input id={inputId} type="radio" className="cx-checkbox__input" {...props} />
+      <span className="cx-checkbox__copy">
+        <span className="cx-checkbox__label">{label}</span>
+        {description && <span className="cx-checkbox__description">{description}</span>}
+      </span>
+    </label>
+  )
+}
+
 export interface ToggleProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'type'> {
   checked: boolean
   onCheckedChange: (checked: boolean) => void

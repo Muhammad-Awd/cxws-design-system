@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, Radio, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -210,5 +210,10 @@ describe('presentational components', () => {
     expect(screen.getByRole('heading', { level: 2, name: /Mail/ })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3, name: 'Needs you' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Edit' })).toHaveClass('cx-text-button')
+  })
+
+  it('renders a radio option with its label as the accessible name', () => {
+    render(<Radio name="impact" label="Something is affected" defaultChecked />)
+    expect(screen.getByRole('radio', { name: 'Something is affected' })).toBeChecked()
   })
 })

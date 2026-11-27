@@ -308,6 +308,6 @@ For one flagship screen that needs to show what a feature does, such as a tester
 <Card tone="raised">A panel inside a card</Card>
 ```
 
-`Chip` filters or picks. `Stepper` shows numbered steps and lets people go back. `SegmentedControl` switches between a few exclusive options. `SectionTitle` is the one heading style for page sections (h2) and `CardTitle` for card titles (h3). `TextButton` is a small underlined action inside running text. Use `Card tone="raised"` for a panel inside a card instead of a custom background.
+`Radio` is one option of an exclusive choice, built like `Checkbox`. `Chip` filters or picks. `Stepper` shows numbered steps and lets people go back. `SegmentedControl` switches between a few exclusive options. `SectionTitle` is the one heading style for page sections (h2) and `CardTitle` for card titles (h3). `TextButton` is a small underlined action inside running text. Use `Card tone="raised"` for a panel inside a card instead of a custom background.
 
 Body text never goes below 12 px (0.75rem).
