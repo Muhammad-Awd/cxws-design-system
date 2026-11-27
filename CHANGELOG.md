@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.10.0] - 2026-11-27
+
+### Added
+
+- Hero visual parts: `GhostCursor`, `ClickRipple` and `AnnotationPin`, with documentation and a design principle for flagship example screens. They use theme and status tokens only and have reduced-motion fallbacks.
+
 ## [0.9.0] - 2026-11-27
 
 ### Added

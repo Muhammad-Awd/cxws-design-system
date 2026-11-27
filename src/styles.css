@@ -226,6 +226,8 @@
 .cx-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
 @keyframes cx-spin { to { transform: rotate(360deg); } }
+@keyframes cx-ripple { from { transform: scale(0.4); opacity: 0.7; } to { transform: scale(1.8); opacity: 0; } }
+@keyframes cx-pin-in { from { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } to { transform: scale(1); opacity: 1; } }
 @keyframes cx-sweep { to { transform: rotate(360deg); } }
 @keyframes cx-scan { 0%, 100% { inset-block-start: 0; } 50% { inset-block-start: calc(100% - 2px); } }
 @keyframes cx-shimmer { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
@@ -352,4 +354,21 @@
   .cx-motion-sweep, .cx-motion-scan, .cx-motion-travel { display: none; }
   .cx-motion-shimmer, .cx-motion-reveal { animation: none; }
   .cx-motion-caret::after { animation: none; }
+}
+
+/* Hero visuals: an example screen where a tester's cursor moves, clicks and pins what it finds. Theme colours and status tokens only. */
+.cx-ghost-cursor { position: absolute; z-index: 3; width: 1.25rem; height: 1.25rem; margin: -2px 0 0 -3px; pointer-events: none; transition: left 900ms cubic-bezier(0.45, 0, 0.2, 1), top 900ms cubic-bezier(0.45, 0, 0.2, 1), opacity 200ms ease-out; }
+.cx-ghost-ripple { position: absolute; z-index: 2; width: 1.75rem; height: 1.75rem; margin: -0.875rem 0 0 -0.875rem; border: 2px solid var(--cx-text); border-radius: 9999px; pointer-events: none; animation: cx-ripple 700ms ease-out both; }
+.cx-pin { position: absolute; z-index: 4; display: flex; max-width: 14rem; align-items: flex-start; gap: 0.375rem; transform: translate(-0.75rem, -0.75rem); animation: cx-pin-in 320ms ease-out both; }
+.cx-pin--flip { flex-direction: row-reverse; transform: translate(calc(-100% + 0.75rem), -0.75rem); }
+.cx-pin__dot { display: inline-flex; width: 1.5rem; height: 1.5rem; flex: none; align-items: center; justify-content: center; border: 1px solid var(--cx-pin-border); border-radius: 9999px; background: var(--cx-pin-bg); color: var(--cx-pin-fg); font-size: 0.75rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cx-pin__note { border: 1px solid var(--cx-pin-border); border-radius: var(--cx-radius-control); background: var(--cx-surface-raised); padding: 0.25rem 0.5rem; color: var(--cx-text); font-size: 0.75rem; line-height: 1.25; }
+.cx-pin--danger { --cx-pin-fg: var(--cx-status-danger-fg); --cx-pin-bg: var(--cx-status-danger-bg); --cx-pin-border: var(--cx-status-danger-border); }
+.cx-pin--warn { --cx-pin-fg: var(--cx-status-warn-fg); --cx-pin-bg: var(--cx-status-warn-bg); --cx-pin-border: var(--cx-status-warn-border); }
+.cx-pin--ok { --cx-pin-fg: var(--cx-status-ok-fg); --cx-pin-bg: var(--cx-status-ok-bg); --cx-pin-border: var(--cx-status-ok-border); }
+.cx-pin--neutral { --cx-pin-fg: var(--cx-status-neutral-fg); --cx-pin-bg: var(--cx-status-neutral-bg); --cx-pin-border: var(--cx-status-neutral-border); }
+@media (prefers-reduced-motion: reduce) {
+  .cx-ghost-cursor { transition: none; }
+  .cx-ghost-ripple { display: none; }
+  .cx-pin { animation: none; }
 }

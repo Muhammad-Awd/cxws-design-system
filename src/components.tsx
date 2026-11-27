@@ -1075,3 +1075,52 @@ export function Heartbeat({ tone = 'ok', live = true, label, className = '' }: H
     </svg>
   )
 }
+
+export interface GhostCursorProps {
+  /** Position inside the frame, in percent. The cursor glides there. */
+  x: number
+  y: number
+  visible?: boolean
+  className?: string
+}
+
+/** A visitor's cursor for an example that shows how a tester behaves. Glides between positions; place it inside a `position: relative` frame. */
+export function GhostCursor({ x, y, visible = true, className = '' }: GhostCursorProps) {
+  return (
+    <svg className={`cx-ghost-cursor${className ? ` ${className}` : ''}`} style={{ left: `${x}%`, top: `${y}%`, opacity: visible ? 1 : 0 }} viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M3 2 L3 15 L6.5 11.5 L9 17 L11.2 16 L8.8 10.6 L13.5 10.6 Z" fill="var(--cx-text)" stroke="var(--cx-surface)" strokeWidth="1.2" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export interface ClickRippleProps {
+  x: number
+  y: number
+}
+
+/** A ring that expands once where the cursor clicked. Give it a new `key` for every click. */
+export function ClickRipple({ x, y }: ClickRippleProps) {
+  return <span className="cx-ghost-ripple" style={{ left: `${x}%`, top: `${y}%` }} aria-hidden="true" />
+}
+
+export interface AnnotationPinProps {
+  /** Number shown on the pin. */
+  n: number
+  tone?: StatusTone
+  /** The note next to the pin. */
+  children: ReactNode
+  x: number
+  y: number
+  /** Put the note on the left of the pin. */
+  flip?: boolean
+}
+
+/** A numbered pin with a short note, placed on top of an example screen. */
+export function AnnotationPin({ n, tone = 'danger', children, x, y, flip = false }: AnnotationPinProps) {
+  return (
+    <div className={`cx-pin cx-pin--${tone}${flip ? ' cx-pin--flip' : ''}`} style={{ left: `${x}%`, top: `${y}%` }}>
+      <span className="cx-pin__dot" aria-hidden="true">{n}</span>
+      <span className="cx-pin__note">{children}</span>
+    </div>
+  )
+}

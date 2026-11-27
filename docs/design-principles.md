@@ -37,6 +37,12 @@ Each rule is labeled by evidence: **OBSERVED** means present in customer-portal 
 - **PROPOSED** Motion is allowed when it shows state: a sweep on a live status circle, a caret on the newest log line, a dot travelling along a link. It uses status tokens, follows the theme and stops for reduced motion. It never becomes a glow, gradient background, grid or vignette.
 - **PROPOSED** Use at most one live panel per screen, and only where the state really changes over time.
 
+## Hero visuals
+
+- **PROPOSED** One flagship screen per feature may show the feature working on a simulated example: a browser frame, a gliding cursor, click ripples and annotation pins. It is a simulation of the real product, not abstract decoration.
+- **PROPOSED** The example is built from the system's surfaces, borders and status tokens, so it follows the theme. No glows, gradients or invented colours. Label it "Example" when the data is not the customer's.
+- **PROPOSED** Reduced-motion users get the finished state, not a blank frame.
+
 ## Source reconciliation
 
 The attached Dipdux brand-guidelines DOCX was consulted as a separate reference document. It is not treated as an instruction that supersedes the requested portal-source extraction. Some statements differ from the portal implementation: the document names SF Arabic while the portal loads IBM Plex Sans Arabic; it describes Bennu Red for primary calls to action while the portal's core primary button uses white/near-black values. This package follows the portal's current code values. The product owner's later instruction to use CloudX branding alone supersedes the document's co-branding examples.

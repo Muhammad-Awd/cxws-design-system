@@ -280,3 +280,16 @@ Do not use them as decoration. Do not add glows, gradients, dark panels that ign
 `cx-motion-sweep` (a slow tinted sweep for a live status circle), `cx-motion-scan` (a thin line passing over a preview), `cx-motion-shimmer` (the part that is running now), `cx-motion-reveal` (a new line fades up), `cx-motion-caret` (a blinking caret on the newest line) and `cx-motion-travel` (a dot moving along a line). Set the colour with `cx-motion--ok`, `--warn`, `--danger` or `--neutral`. They stop for people who ask for reduced motion.
 
 Use them only while something is happening now, and not more than a few on one screen.
+
+### Hero visuals: `GhostCursor`, `ClickRipple`, `AnnotationPin`
+
+```tsx
+<div className="relative">
+  <ExampleScreen />
+  <GhostCursor x={62} y={40} />
+  <ClickRipple key={clicks} x={62} y={40} />
+  <AnnotationPin n={1} tone="danger" x={70} y={46}>Checkout does nothing in Arabic</AnnotationPin>
+</div>
+```
+
+For one flagship screen that needs to show what a feature does, such as a tester walking through a sample shop. Build the example screen from real surfaces (`--cx-surface`, `--cx-border`), not an illustration. The cursor glides, a ripple marks a click, and a pin names a problem in a status tone. Label the example as an example when the data is not the customer's own, give reduced-motion users the finished state, and keep it to one per screen.

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
+import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, GhostCursor, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -175,5 +175,12 @@ describe('presentational components', () => {
     const css = readFileSync('src/styles.css', 'utf8')
     for (const name of ['sweep', 'scan', 'shimmer', 'reveal', 'caret', 'travel']) expect(css).toContain(`.cx-motion-${name}`)
     expect(css).toMatch(/prefers-reduced-motion: reduce\) \{\s*\.cx-motion-sweep/)
+  })
+
+  it('places a ghost cursor and a numbered pin inside an example screen', () => {
+    const { container } = render(<div><GhostCursor x={40} y={20} /><AnnotationPin n={2} tone="warn" x={10} y={50}>Form accepts an empty email</AnnotationPin></div>)
+    expect(container.querySelector('.cx-ghost-cursor')).toHaveStyle({ left: '40%', top: '20%' })
+    expect(screen.getByText('Form accepts an empty email')).toBeInTheDocument()
+    expect(container.querySelector('.cx-pin--warn .cx-pin__dot')).toHaveTextContent('2')
   })
 })
