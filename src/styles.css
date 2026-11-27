@@ -397,3 +397,41 @@
 .cx-section-title { color: var(--cx-text); font-size: 1rem; font-weight: 700; line-height: 1.5rem; }
 .cx-section-title__count { margin-inline-start: 0.5rem; color: var(--cx-text-subtle); font-size: 0.875rem; font-weight: 400; font-variant-numeric: tabular-nums; }
 .cx-card-title { color: var(--cx-text); font-size: 0.875rem; font-weight: 700; line-height: 1.25rem; }
+
+/* Ledger: hairline rows, large figures and a timeline spine. */
+@keyframes cx-breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.55; } }
+@keyframes cx-settle { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes cx-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.cx-motion-breathe { animation: cx-breathe 2s ease-in-out infinite; }
+.cx-motion-settle { animation: cx-settle 360ms ease-out backwards; }
+.cx-ledger { display: block; border-block-start: 1px solid var(--cx-border); }
+.cx-ledger__row { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto; gap: 0.5rem 1.5rem; align-items: start; border-block-end: 1px solid var(--cx-border); padding-block: 1rem; }
+.cx-ledger__label { color: var(--cx-text-muted); font-size: 0.875rem; font-weight: 700; line-height: 1.5rem; }
+.cx-ledger__body { min-width: 0; color: var(--cx-text); font-size: 0.875rem; line-height: 1.5rem; }
+.cx-ledger__aside { display: flex; align-items: center; gap: 0.5rem; }
+@media (max-width: 40rem) { .cx-ledger__row { grid-template-columns: minmax(0, 1fr); } .cx-ledger__aside { justify-self: start; } }
+.cx-figure { display: inline-flex; flex-direction: column; gap: 0.125rem; }
+.cx-figure__value { color: var(--cx-text); font-size: 1.75rem; font-weight: 700; line-height: 2rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.cx-figure__caption { color: var(--cx-text-muted); font-size: 0.75rem; line-height: 1rem; }
+.cx-figure--ok .cx-figure__value { color: var(--cx-status-ok-fg); }
+.cx-figure--warn .cx-figure__value { color: var(--cx-status-warn-fg); }
+.cx-figure--danger .cx-figure__value { color: var(--cx-status-danger-fg); }
+.cx-spine { position: relative; display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.cx-spine__step { position: relative; display: flex; gap: 1rem; padding-block-end: 1.25rem; }
+.cx-spine__step:last-child { padding-block-end: 0; }
+.cx-spine__step::before { content: ''; position: absolute; inset-block: 1.25rem 0; inset-inline-start: 0.5rem; width: 1px; margin-inline-start: -0.5px; background: var(--cx-border-strong); transform-origin: top; }
+.cx-spine__step:last-child::before { display: none; }
+.cx-spine__step--done::before { background: var(--cx-status-ok-fg); animation: cx-fill 480ms ease-out backwards; }
+.cx-spine__node { position: relative; z-index: 1; display: inline-flex; width: 1rem; height: 1rem; flex: none; align-items: center; justify-content: center; margin-block-start: 0.125rem; border: 1px solid var(--cx-border-strong); border-radius: 9999px; background: var(--cx-bg); color: var(--cx-bg); }
+.cx-spine__step--building .cx-spine__node { border-color: var(--cx-status-warn-fg); background: var(--cx-status-warn-fg); animation: cx-breathe 2s ease-in-out infinite; }
+.cx-spine__step--done .cx-spine__node { border-color: var(--cx-status-ok-fg); background: var(--cx-status-ok-fg); animation: cx-settle 360ms ease-out backwards; }
+.cx-spine__step--failed .cx-spine__node { border-color: var(--cx-status-danger-fg); background: var(--cx-status-danger-fg); }
+.cx-spine__content { min-width: 0; flex: 1; }
+.cx-spine__title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin: 0; color: var(--cx-text); font-size: 0.875rem; font-weight: 700; line-height: 1.5rem; }
+.cx-spine__step--queued .cx-spine__title { color: var(--cx-text-muted); font-weight: 400; }
+.cx-spine__meta { color: var(--cx-text-muted); font-size: 0.75rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+.cx-spine__body { margin-block-start: 0.25rem; color: var(--cx-text-muted); font-size: 0.875rem; line-height: 1.375rem; }
+.cx-spine__step--failed .cx-spine__body { color: var(--cx-status-danger-fg); }
+@media (prefers-reduced-motion: reduce) {
+  .cx-motion-breathe, .cx-motion-settle, .cx-spine__step--building .cx-spine__node, .cx-spine__step--done .cx-spine__node, .cx-spine__step--done::before { animation: none; }
+}

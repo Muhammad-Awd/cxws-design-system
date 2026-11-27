@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, Radio, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
+import { Figure, Ledger, LedgerRow, Spine, SpineStep, Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, Radio, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -215,5 +215,16 @@ describe('presentational components', () => {
   it('renders a radio option with its label as the accessible name', () => {
     render(<Radio name="impact" label="Something is affected" defaultChecked />)
     expect(screen.getByRole('radio', { name: 'Something is affected' })).toBeChecked()
+  })
+})
+
+describe('Ledger parts', () => {
+  it('renders rows, figures and spine states', () => {
+    render(<><Ledger><LedgerRow label="Address" aside={<span>Copy</span>}>shop.example</LedgerRow></Ledger><Figure value="2m" caption="Last build" /><Spine label="Build"><SpineStep state="done" stateLabel="Done" title="Received" /><SpineStep state="building" stateLabel="Building" title="Making it" /><SpineStep state="failed" stateLabel="Failed" title="Going live" /></Spine></>)
+    expect(screen.getByText('shop.example')).toBeTruthy()
+    expect(screen.getByText('Last build')).toBeTruthy()
+    expect(screen.getByLabelText('Build').querySelectorAll('li').length).toBe(3)
+    expect(screen.getByText('Building').closest('li')?.getAttribute('aria-current')).toBe('step')
+    expect(screen.getByText('Failed')).toBeTruthy()
   })
 })

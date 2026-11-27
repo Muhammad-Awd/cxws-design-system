@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.12.0] - 2026-11-28
+
+### Added
+
+- Ledger parts: `Ledger` and `LedgerRow` (hairline rows), `Figure` (large tabular number), `Spine` and `SpineStep` (vertical timeline with queued, building, done and failed states), and the `cx-motion-breathe` and `cx-motion-settle` utilities, with a design principle for when to use them.
+
 ## [0.11.0] - 2026-11-27
 
 ### Added

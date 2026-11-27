@@ -1259,3 +1259,91 @@ export function SectionTitle({ children, as: Tag = 'h2', count, id, className = 
 export function CardTitle({ children, as: Tag = 'h3', id, className = '' }: Omit<SectionTitleProps, 'count'>) {
   return <Tag id={id} className={`cx-card-title${className ? ` ${className}` : ''}`}>{children}</Tag>
 }
+
+/* Ledger: rows divided by hairlines instead of cards, a timeline spine for things that happen in order, and large figures. */
+
+export interface LedgerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'> {
+  children: ReactNode
+  className?: string
+}
+
+/** A stack of full-width rows separated by hairlines. Use it where a grid of cards would repeat itself. */
+export function Ledger({ children, className = '', ...rest }: LedgerProps) {
+  return <div className={`cx-ledger${className ? ` ${className}` : ''}`} {...rest}>{children}</div>
+}
+
+export interface LedgerRowProps {
+  /** The short name of the row, in the narrow column. */
+  label: ReactNode
+  children: ReactNode
+  /** Something to the right, such as an action. */
+  aside?: ReactNode
+  className?: string
+}
+
+export function LedgerRow({ label, children, aside, className = '' }: LedgerRowProps) {
+  return (
+    <div className={`cx-ledger__row${className ? ` ${className}` : ''}`}>
+      <div className="cx-ledger__label">{label}</div>
+      <div className="cx-ledger__body">{children}</div>
+      {aside && <div className="cx-ledger__aside">{aside}</div>}
+    </div>
+  )
+}
+
+export interface FigureProps {
+  value: ReactNode
+  caption: ReactNode
+  tone?: 'default' | 'ok' | 'warn' | 'danger'
+  className?: string
+}
+
+/** A large number with a small caption under it. Digits are tabular so they do not jump. */
+export function Figure({ value, caption, tone = 'default', className = '' }: FigureProps) {
+  return (
+    <div className={`cx-figure cx-figure--${tone}${className ? ` ${className}` : ''}`}>
+      <span className="cx-figure__value">{value}</span>
+      <span className="cx-figure__caption">{caption}</span>
+    </div>
+  )
+}
+
+export type SpineState = 'queued' | 'building' | 'done' | 'failed'
+
+export interface SpineProps {
+  children: ReactNode
+  label: string
+  className?: string
+}
+
+/** A vertical timeline. Each SpineStep is a node on one line, so order and progress read at a glance. */
+export function Spine({ children, label, className = '' }: SpineProps) {
+  return <ol className={`cx-spine${className ? ` ${className}` : ''}`} aria-label={label}>{children}</ol>
+}
+
+export interface SpineStepProps {
+  state: SpineState
+  title: ReactNode
+  /** Small text beside the title, such as a time. */
+  meta?: ReactNode
+  /** Plain-word state, read by assistive technology (for example "Building"). */
+  stateLabel: string
+  children?: ReactNode
+  className?: string
+}
+
+/** One node on a Spine. A building node breathes slowly; a done node settles in; a failed node holds still. */
+export function SpineStep({ state, title, meta, stateLabel, children, className = '' }: SpineStepProps) {
+  return (
+    <li className={`cx-spine__step cx-spine__step--${state}${className ? ` ${className}` : ''}`} aria-current={state === 'building' ? 'step' : undefined}>
+      <span className="cx-spine__node" aria-hidden>
+        {state === 'done' && <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2.5 6.5l2.2 2.2L9.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+        {state === 'failed' && <svg viewBox="0 0 12 12" width="10" height="10"><path d="M3 3l6 6M9 3l-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>}
+      </span>
+      <div className="cx-spine__content">
+        <p className="cx-spine__title"><span>{title}</span>{meta && <span className="cx-spine__meta">{meta}</span>}<span className="cx-sr-only">{stateLabel}</span></p>
+        {children && <div className="cx-spine__body">{children}</div>}
+      </div>
+    </li>
+  )
+}

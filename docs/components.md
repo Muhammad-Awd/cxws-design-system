@@ -311,3 +311,23 @@ For one flagship screen that needs to show what a feature does, such as a tester
 `Radio` is one option of an exclusive choice, built like `Checkbox`. `Chip` filters or picks. `Stepper` shows numbered steps and lets people go back. `SegmentedControl` switches between a few exclusive options. `SectionTitle` is the one heading style for page sections (h2) and `CardTitle` for card titles (h3). `TextButton` is a small underlined action inside running text. Use `Card tone="raised"` for a panel inside a card instead of a custom background.
 
 Body text never goes below 12 px (0.75rem).
+
+
+## Ledger
+
+Rows divided by hairlines, a vertical timeline for things that happen in order, and large figures. Use them instead of a grid of identical cards.
+
+```tsx
+<Ledger>
+  <LedgerRow label="Address" aside={<TextButton>Copy</TextButton>}>shop.cloudx.example</LedgerRow>
+  <LedgerRow label="Database">1 GB used of 5 GB</LedgerRow>
+</Ledger>
+<Figure value="2m 14s" caption="Last build" />
+<Spine label="Latest build">
+  <SpineStep state="done" stateLabel="Done" title="Code received" meta="12:01" />
+  <SpineStep state="building" stateLabel="Building" title="Building your app" />
+  <SpineStep state="queued" stateLabel="Waiting" title="Going live" />
+</Spine>
+```
+
+`SpineStep` states: `queued` (hollow), `building` (the node breathes), `done` (filled, the line to the next step fills), `failed` (holds still, body text in the danger tone). Always pass `stateLabel` so the state is not only a colour. Motion utilities `cx-motion-breathe` and `cx-motion-settle` stop under reduced motion.

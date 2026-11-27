@@ -58,3 +58,8 @@ The attached Dipdux brand-guidelines DOCX was consulted as a separate reference 
 - **UNKNOWN** No explicit written design philosophy or component governance policy was found in the portal source.
 - **UNKNOWN** Whether consumers may alter semantic status colors or typography while preserving CloudX brand approval.
 - **UNKNOWN** Any requirement to use the attached brand-guidelines values other than its superseded co-branding examples where they differ from the running portal source.
+
+
+## Ledger direction
+
+Where a screen would repeat the same card many times, set it as rows divided by hairlines (`Ledger`). Use a `Spine` for anything that happens in order, such as a build or a set-up. Figures are large and tabular. The accent colour marks the one thing that needs attention now; status tones mark state only. No gradients, glows or shadows. Motion is slow and shows that something is happening: a building node breathes on a 2 s cycle, a finished step settles in, a failed step holds still.

@@ -1,6 +1,6 @@
 {
   "name": "@muhammad-awd/cxws-design-system",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Presentational UI components and design tokens extracted from the CloudX customer portal.",
   "license": "UNLICENSED",
   "type": "module",
