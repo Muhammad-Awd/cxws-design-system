@@ -6,7 +6,7 @@ Changes to this project are recorded here. Versioning follows SemVer; package na
 
 ### Added
 
-- Product map parts: `NodeMap`, `NodeHub` and `NodeLink` (a hub and the parts it is connected to, drawn as a tree and, from wide screens, as one line; it is a real list with a state word on every part), `BrowserFrame` (a page seen in a browser window, with a drawn stand-in and an offline state) and `Spot` (a small set of drawn pictures for parts and empty states). Neutral lines with one accent detail.
+- Product map parts: `NodeMap`, `NodeHub` and `NodeLink` (a hub and the parts it is connected to, drawn as a tree and, from wide screens, as one line; it is a real list with a state word on every part), `BrowserFrame` (a page seen in a browser window, with a drawn stand-in and an offline state) and `Spot` (a small set of drawn pictures for parts and empty states). Neutral lines with one accent detail. `NodeHub quiet` hides the hub text on wide screens when the page already names the thing.
 
 ## [0.14.0] - 2026-11-28
 

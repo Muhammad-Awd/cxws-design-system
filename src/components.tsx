@@ -1408,13 +1408,15 @@ export interface NodeHubProps {
   icon: ReactNode
   name: ReactNode
   detail?: ReactNode
+  /** Hide the name and detail from wide screens in a `row` map, for when the page already shows them. They stay readable to assistive technology. */
+  quiet?: boolean
   className?: string
 }
 
 /** The centre of a NodeMap. */
-export function NodeHub({ icon, name, detail, className = '' }: NodeHubProps) {
+export function NodeHub({ icon, name, detail, quiet = false, className = '' }: NodeHubProps) {
   return (
-    <div className={`cx-node cx-node--hub${className ? ` ${className}` : ''}`}>
+    <div className={`cx-node cx-node--hub${quiet ? ' cx-node--quiet' : ''}${className ? ` ${className}` : ''}`}>
       <span className="cx-node__icon" aria-hidden>{icon}</span>
       <span className="cx-node__text">
         <span className="cx-node__name">{name}</span>

@@ -502,6 +502,7 @@
   .cx-nodemap--row .cx-nodemap__item--danger::before { border-top-color: var(--cx-status-danger-fg); }
   .cx-nodemap--row .cx-node { flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; width: 100%; padding-inline: 0.25rem; }
   .cx-nodemap--row .cx-node__text { align-items: center; }
+  .cx-nodemap--row .cx-node--quiet .cx-node__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .cx-nodemap--row .cx-nodemap__hub .cx-node { position: relative; }
   .cx-nodemap--row .cx-nodemap__hub .cx-node::after { content: ''; position: absolute; top: 1.5rem; inset-inline-start: calc(50% + 1.5rem); inset-inline-end: -0.25rem; border-top: 1.5px solid var(--cx-border-strong); }
 }
