@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Figure, Ledger, LedgerRow, Spine, SpineStep, Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, Radio, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
+import { BrowserFrame, NodeHub, NodeLink, NodeMap, Spot, Figure, Ledger, LedgerRow, Spine, SpineStep, Alert, Badge, Button, Checkbox, DataTable, DetailRow, Drawer, Dropzone, EmptyState, Field, GroupedSidebar, Input, AnnotationPin, CardTitle, Chip, Radio, ChipGroup, GhostCursor, SectionTitle, SegmentedControl, Stepper, TextButton, Heartbeat, MetricCard, Modal, Pagination, ProgressBar, PulseDot, SearchField, Tabs, Toggle } from '../src/components'
 
 describe('presentational components', () => {
   it('disables a button while loading and exposes busy state', () => {
@@ -226,5 +226,26 @@ describe('Ledger parts', () => {
     expect(screen.getByLabelText('Build').querySelectorAll('li').length).toBe(3)
     expect(screen.getByText('Building').closest('li')?.getAttribute('aria-current')).toBe('step')
     expect(screen.getByText('Failed')).toBeTruthy()
+  })
+})
+
+describe('Product map parts', () => {
+  it('reads as a list with a state word on every part', () => {
+    render(
+      <>
+        <NodeMap label="How Atlas is set up" hub={<NodeHub icon={<Spot name="product" />} name="Atlas" detail="atlas.example" />}>
+          <NodeLink icon={<Spot name="server" />} name="Where it runs" detail="Frankfurt" state="ok" stateLabel="Working" href="#run" />
+          <NodeLink icon={<Spot name="mail" />} name="Email" state="danger" stateLabel="Needs a look" onClick={() => {}} />
+          <NodeLink icon={<Spot name="plus" />} name="Uptime checks" state="off" stateLabel="Not set up" />
+        </NodeMap>
+        <BrowserFrame address="atlas.example" caption="Checked just now" state="danger" stateLabel="Offline" />
+      </>,
+    )
+    expect(screen.getByRole('group', { name: 'How Atlas is set up' }).querySelectorAll('li').length).toBe(3)
+    expect(screen.getByRole('link', { name: /Where it runs/ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Email/ })).toBeTruthy()
+    expect(screen.getByText('Not set up')).toBeTruthy()
+    expect(screen.getByText('Offline')).toBeTruthy()
+    expect(document.querySelectorAll('svg.cx-spot[aria-hidden="true"]').length).toBe(4)
   })
 })

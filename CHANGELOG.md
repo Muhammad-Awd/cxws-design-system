@@ -2,6 +2,12 @@
 
 Changes to this project are recorded here. Versioning follows SemVer; package name and version are repository choices.
 
+## [0.15.0] - 2026-11-28
+
+### Added
+
+- Product map parts: `NodeMap`, `NodeHub` and `NodeLink` (a hub and the parts it is connected to, drawn as a tree and, from wide screens, as one line; it is a real list with a state word on every part), `BrowserFrame` (a page seen in a browser window, with a drawn stand-in and an offline state) and `Spot` (a small set of drawn pictures for parts and empty states). Neutral lines with one accent detail.
+
 ## [0.14.0] - 2026-11-28
 
 ### Changed

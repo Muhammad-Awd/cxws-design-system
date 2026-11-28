@@ -1,5 +1,7 @@
 import {
   cloneElement,
+  type ComponentPropsWithoutRef,
+  type ElementType,
   forwardRef,
   isValidElement,
   useEffect,
@@ -1345,5 +1347,148 @@ export function SpineStep({ state, title, meta, stateLabel, children, className 
         {children && <div className="cx-spine__body">{children}</div>}
       </div>
     </li>
+  )
+}
+
+export type SpotName = 'product' | 'server' | 'database' | 'mail' | 'pulse' | 'tester' | 'shield' | 'globe' | 'plus'
+
+export interface SpotProps {
+  name: SpotName
+  size?: number
+  className?: string
+}
+
+/** A small drawn picture on a 48 point grid: soft fill, 1.5 outline in the text colour and one accent detail. Decorative, so it is hidden from assistive technology. */
+export function Spot({ name, size = 28, className = '' }: SpotProps) {
+  const soft = 'var(--cx-surface)'
+  const accent = 'var(--cx-accent-text)'
+  const parts: Record<SpotName, ReactNode> = {
+    product: <><rect x="6" y="9" width="36" height="30" rx="5" fill={soft} /><path d="M6 18h36" /><circle cx="11.5" cy="13.5" r="1" /><circle cx="16" cy="13.5" r="1" /><rect x="12" y="23" width="13" height="9" rx="2" stroke={accent} /><path d="M30 24h6M30 29h4" /></>,
+    server: <><rect x="6" y="8" width="36" height="14" rx="4" fill={soft} /><rect x="6" y="26" width="36" height="14" rx="4" fill={soft} /><circle cx="13" cy="15" r="1.6" stroke={accent} /><circle cx="13" cy="33" r="1.6" stroke={accent} /><path d="M21 15h14M21 33h14" /></>,
+    database: <><path d="M10 12v24c0 2.8 6.3 5 14 5s14-2.2 14-5V12" fill={soft} /><ellipse cx="24" cy="12" rx="14" ry="5" fill={soft} /><path d="M10 24c0 2.8 6.3 5 14 5s14-2.2 14-5" stroke={accent} /></>,
+    mail: <><rect x="6" y="12" width="36" height="24" rx="4" fill={soft} /><path d="M7 15l17 12 17-12" stroke={accent} /></>,
+    pulse: <><circle cx="24" cy="24" r="18" fill={soft} /><path d="M9 25h8l4-9 6 18 4-9h8" stroke={accent} /></>,
+    tester: <><circle cx="21" cy="21" r="12" fill={soft} /><path d="M30 30l11 11" /><path d="M16 21.5l3.5 3.5 6-7" stroke={accent} /></>,
+    shield: <><path d="M24 6l14 5v11c0 9-6 15-14 19-8-4-14-10-14-19V11z" fill={soft} /><path d="M18 24l5 5 8-10" stroke={accent} /></>,
+    globe: <><circle cx="24" cy="24" r="17" fill={soft} /><path d="M7 24h34" /><ellipse cx="24" cy="24" rx="7" ry="17" stroke={accent} /></>,
+    plus: <><circle cx="24" cy="24" r="17" strokeDasharray="3 4" /><path d="M24 16v16M16 24h16" stroke={accent} /></>,
+  }
+  return (
+    <svg className={`cx-spot${className ? ` ${className}` : ''}`} viewBox="0 0 48 48" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden focusable="false">
+      {parts[name]}
+    </svg>
+  )
+}
+
+export type NodeState = 'ok' | 'warn' | 'danger' | 'off'
+
+export interface NodeMapProps {
+  /** Names the diagram for assistive technology, for example "How Atlas Journal is set up". */
+  label: string
+  /** The thing in the middle, usually a NodeHub. */
+  hub: ReactNode
+  /** NodeLink items. */
+  children: ReactNode
+  /** `tree` always stacks the parts under the hub. `row` lays them in one line from wide screens and stacks them on narrow ones. */
+  layout?: 'tree' | 'row'
+  className?: string
+}
+
+/** A hub with the parts it is connected to. It is a real list, so the order, names and states read the same without the drawing. */
+export function NodeMap({ label, hub, children, layout = 'tree', className = '' }: NodeMapProps) {
+  return (
+    <div className={`cx-nodemap cx-nodemap--${layout}${className ? ` ${className}` : ''}`} role="group" aria-label={label}>
+      <div className="cx-nodemap__hub">{hub}</div>
+      <ul className="cx-nodemap__nodes">{children}</ul>
+    </div>
+  )
+}
+
+export interface NodeHubProps {
+  icon: ReactNode
+  name: ReactNode
+  detail?: ReactNode
+  className?: string
+}
+
+/** The centre of a NodeMap. */
+export function NodeHub({ icon, name, detail, className = '' }: NodeHubProps) {
+  return (
+    <div className={`cx-node cx-node--hub${className ? ` ${className}` : ''}`}>
+      <span className="cx-node__icon" aria-hidden>{icon}</span>
+      <span className="cx-node__text">
+        <span className="cx-node__name">{name}</span>
+        {detail && <span className="cx-node__detail">{detail}</span>}
+      </span>
+    </div>
+  )
+}
+
+export type NodeLinkProps = Omit<ComponentPropsWithoutRef<'a'>, 'children'> & {
+  icon: ReactNode
+  name: ReactNode
+  detail?: ReactNode
+  state: NodeState
+  /** The state in plain words, always shown, so colour is never the only signal (for example "Working", "Needs a look", "Not set up"). */
+  stateLabel: string
+  /** Render as another element, for example a router link. */
+  as?: ElementType
+  to?: string
+}
+
+/** One part connected to the hub. A dashed link means it is not set up. A coloured ring means it needs a look or has failed. */
+export function NodeLink({ icon, name, detail, state, stateLabel, as, className = '', ...rest }: NodeLinkProps) {
+  const interactive = Boolean(as || rest.href || rest.onClick || rest.to)
+  const Tag: ElementType = as ?? (rest.href ? 'a' : rest.onClick ? 'button' : 'div')
+  return (
+    <li className={`cx-nodemap__item cx-nodemap__item--${state}`}>
+      <Tag className={`cx-node cx-node--${state}${interactive ? ' cx-node--action' : ''}${className ? ` ${className}` : ''}`} {...(Tag === 'button' ? { type: 'button' } : {})} {...rest}>
+        <span className="cx-node__icon" aria-hidden>{icon}</span>
+        <span className="cx-node__text">
+          <span className="cx-node__name">{name}</span>
+          {detail && <span className="cx-node__detail">{detail}</span>}
+          <span className="cx-node__state"><span className="cx-node__dot" aria-hidden />{stateLabel}</span>
+        </span>
+      </Tag>
+    </li>
+  )
+}
+
+export interface BrowserFrameProps {
+  /** The address shown in the bar. */
+  address: string
+  /** A real picture of the page. When missing, a drawn page stands in. */
+  src?: string
+  alt?: string
+  /** Small text under the frame, for example when it was last checked. */
+  caption?: ReactNode
+  /** `danger` or `off` dims the page and says why, in words. */
+  state?: 'ok' | 'danger' | 'off'
+  stateLabel?: string
+  className?: string
+}
+
+/** A page seen in a browser window. */
+export function BrowserFrame({ address, src, alt = '', caption, state = 'ok', stateLabel, className = '' }: BrowserFrameProps) {
+  return (
+    <figure className={`cx-browser cx-browser--${state}${className ? ` ${className}` : ''}`}>
+      <div className="cx-browser__bar" aria-hidden>
+        <span className="cx-browser__dots"><i /><i /><i /></span>
+        <span className="cx-browser__address" dir="ltr">{address}</span>
+      </div>
+      <div className="cx-browser__page">
+        {src ? <img src={src} alt={alt} /> : (
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden focusable="false">
+            <path d="M16 20h40M232 20h20M264 20h20M16 34h288" opacity=".5" />
+            <rect x="16" y="50" width="288" height="62" rx="8" fill="var(--cx-surface)" />
+            <path d="M32 70h110M32 84h80" />
+            <rect x="32" y="94" width="44" height="12" rx="6" stroke="var(--cx-accent-text)" />
+            <rect x="16" y="124" width="90" height="42" rx="6" /><rect x="115" y="124" width="90" height="42" rx="6" /><rect x="214" y="124" width="90" height="42" rx="6" />
+          </svg>
+        )}
+        {state !== 'ok' && stateLabel && <span className="cx-browser__overlay">{stateLabel}</span>}
+      </div>
+      {caption && <figcaption className="cx-browser__caption">{caption}</figcaption>}
+    </figure>
   )
 }

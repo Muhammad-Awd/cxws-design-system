@@ -331,3 +331,21 @@ Rows divided by hairlines, a vertical timeline for things that happen in order, 
 ```
 
 `SpineStep` states: `queued` (hollow), `building` (the node breathes), `done` (filled, the line to the next step fills), `failed` (holds still, body text in the danger tone). Always pass `stateLabel` so the state is not only a colour. Motion utilities `cx-motion-breathe` and `cx-motion-settle` stop under reduced motion.
+
+## Product map: NodeMap, NodeLink, BrowserFrame, Spot
+
+Use these to show how one thing is connected to its parts, and what works and what does not.
+
+```tsx
+<NodeMap label="How Atlas Journal is set up" hub={<NodeHub icon={<Spot name="product" />} name="Atlas Journal" detail="journal.atlas.example" />}>
+  <NodeLink icon={<Spot name="server" />} name="Where it runs" detail="Frankfurt" state="ok" stateLabel="Working" as={Link} to="..." />
+  <NodeLink icon={<Spot name="pulse" />} name="Uptime checks" state="off" stateLabel="Not set up" />
+</NodeMap>
+<BrowserFrame address="journal.atlas.example" caption="Checked 4 minutes ago" />
+```
+
+- `state` is `ok`, `warn`, `danger` or `off`. Always pass `stateLabel`; it is shown, so colour is never the only signal. `off` draws a dashed link and a dashed ring.
+- `layout="row"` puts the parts in one line from wide screens and stacks them as a tree on narrow ones. Use it for lists of Products; use the default tree on a single Product.
+- The drawing is decoration. The `ul` inside `NodeMap` carries the order and the words.
+- `BrowserFrame` shows a real picture with `src`, or a drawn page when there is none. `state="danger"` with a `stateLabel` dims the page and says why.
+- `Spot` names: `product`, `server`, `database`, `mail`, `pulse`, `tester`, `shield`, `globe`, `plus`.
